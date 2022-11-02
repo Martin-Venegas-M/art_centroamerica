@@ -28,7 +28,7 @@ main_findings:
   - "**Confianza en instituciones** y **falta de dinero** predicen las evaluaciones de **(in)justicia** en Centroamérica."
 logoleft_name: https&#58;//coes.cl/wp-content/uploads/COES_Logo_sello1.png
 logoright_name: https&#58;//accionsocial.ucr.ac.cr/sites/default/files/herramienta/imagenes/2020-12/Logo%20UCR%20transparentePNG.PNG
-logocenter_name: ../../../input/images/qr-coes.png
+logocenter_name: https&#58;//github.com/Martin-Venegas-M/art_centroamerica/blob/main/input/images/qr-coes.png?raw=true
 output: 
   posterdown::posterdown_betterport:
     self_contained: false
