@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+<title>Evaluación de (in)justicia distributiva en jóvenes de Centro-américa</title>
+
+
+
+
+
+
+
+<!--
+Font-awesome icons ie github or twitter
+-->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/brands.css" integrity="sha384-n9+6/aSqa9lBidZMRCQHTHKJscPq6NW4pCQBiMmHdUCvPN8ZOg2zJJTkC7WIezWv" crossorigin="anonymous">
+
+<!--
+Google fonts api stuff
+-->
+<link href='https://fonts.googleapis.com/css?family=Special Elite' rel='stylesheet'>
+<link href='https://fonts.googleapis.com/css?family=Rasa' rel='stylesheet'>
+
+<!--
+Here are the required style attributes for css to make this poster work :)
+-->
+<style>
+@page {
+size: 27.55in 39.37in;
+margin: 0;
+padding: 0;
+}
+body {
+margin: 0px;
+padding: 0px;
+width: 27.55in;
+height: 39.37in;
+text-align: justify;
+font-size: 45px;
+line-height: 1.05;
+}
+/* RMarkdown Class Styles */
+/* center align leaflet map,
+from https://stackoverflow.com/questions/52112119/center-leaflet-in-a-rmarkdown-document */
+.html-widget {
+margin: auto;
+position: sticky;
+margin-top: 2cm;
+margin-bottom: 2cm;
+}
+.leaflet.html-widget.html-widget-static-bound.leaflet-container.leaflet-touch.leaflet-fade-anim.leaflet-grab.leaflet-touch-drag.leaflet-touch-zoom {
+position: sticky;
+width: 100%;
+}
+pre.sourceCode.r, pre.sourceCode.python {
+background-color: #ffffff20;
+border: solid #2B2F3C 1mm;
+border-radius: 0.5em;
+padding: 4mm;
+margin: auto;
+margin-top: 1em;
+margin-bottom: 1em;
+/* align-items: center; */
+}
+div.sourceCode {
+background-color: transparent;
+width: 85%;
+margin-left: auto;
+margin-right: auto;
+}
+code.sourceCode.r, code.sourceCode.python {
+background-color: transparent;
+font-size: 20pt;
+border-radius: 2mm;
+}
+code {
+font-size: 25pt;
+font-family: monospace;
+background-color: #2B2F3C24;
+color: #2B2F3C;
+padding: 1.2mm;
+line-height: 1;
+border-radius: 2mm;
+}
+caption {
+margin-bottom: 10px;
+font-size: 20pt;
+font-style: italic;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #2B2F3C20;
+}
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td{
+  border-spacing: 0;
+  font-size: 40%;
+  border-style: none;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-right: 1em;
+  padding-left: 1em;
+  line-height: 1em;
+}
+table {
+  margin: auto;
+}
+th {
+  padding-left: 5mm;
+  padding-right: 5mm;
+}
+.caption {
+font-size: 20pt;
+font-style: italic;
+padding-top: 0;
+}
+.references {
+font-size: 20px;
+line-height: 90%;
+}
+/* Create three unequal columns that floats next to each other */
+.column {
+float: left;
+padding: 0px;
+}
+.outer {
+width: 27.55in;
+height: calc(39.37in *  (1 - 0.2 - 0.1 - 0.01) );
+-webkit-column-count: 3; /* Chrome, Safari, Opera */
+-moz-column-count: 3; /* Firefox */
+column-count: 3;
+-webkit-column-fill: auto;
+-moz-column-fill: auto;
+column-fill: auto;
+column-gap: 0;
+padding-left: 0cm;
+padding-right: 0cm;
+/* -webkit-column-rule-width: 50%;
+-moz-column-rule-width: 50%;
+column-rule-width: 50%; */
+-webkit-column-rule-style: none;
+-moz-column-rule-style: none;
+column-rule-style: none;
+-webkit-column-rule-color: black;
+-moz-column-rule-color: black;
+column-rule-color: black;
+background-color: #ffffff;
+font-family: Rasa;
+margin-top: calc(39.37in *  0.2 );
+padding-top: 1em;
+padding-bottom: 1em;
+}
+span.citation {
+  color: #2B2F3C;
+  font-weight: bold;
+}
+a {
+text-decoration: none;
+color: #2B2F3C;
+}
+#title {
+font-size: 125pt;
+text-align: left;
+margin: 0;
+line-height: 98%;
+border-bottom: 0;
+font-weight: normal;
+background: 0;
+}
+#author {
+color:#487FD3;
+margin: 0;
+line-height: 85%;
+font-size: 1.17em;
+}
+#affiliation {
+padding-top: 0.1em;
+color: ;
+font-style: italic;
+font-size: 25px;
+margin: 0;
+}
+sup {
+color: #824293;
+}
+.affiliation sup {
+font-size: 20px;
+}
+.author {
+text-align: left;
+}
+.author sup {
+font-size: 30px;
+}
+.author_extra {
+color: #2B2F3C;
+margin: 0;
+line-height: 85%;
+font-size: 35px;
+text-align: left;
+}
+.outer h1, h2, h3, h4, h5, h6 {
+text-align: center;
+margin: 0;
+font-weight: bold;
+}
+.section h1 {
+  text-align:center;
+  padding-bottom:5px;
+  background:
+    linear-gradient(
+      to left,
+      #ffffff 1%,
+      #ffffff 20%,
+      #487FD375 33%,
+      #487FD3 50%,
+      #487FD375 66%,
+      #ffffff 80%,
+      #ffffff 99%
+    )
+    left
+    bottom
+    #ffffff
+    no-repeat;
+  background-size:100% 5px ;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+.outer h2 {
+text-align: center;
+}
+.outer p, .level2 {
+color: #000000;
+}
+.outer ol {
+padding-left: 8%;
+padding-right: 8%;
+text-align: left;
+}
+.main {
+width: 27.55in;
+height: calc(39.37in * 0.2);
+position: absolute;
+background-color: #487FD3;
+color: #ffffff90;
+font-family: Special Elite;
+background-image: linear-gradient(#487FD3 50%,#2B2F3C);
+}
+.main strong {
+color: #ffffff;
+}
+.main strong > sup {
+color: #ffffff;
+}
+.main sup {
+color: #ffffff90;
+}
+#main-img-left {
+width: 10%;
+left: 0.5in;
+bottom: 0.2in;
+position: absolute;
+}
+#main-img-center {
+width: 10%;
+left: calc(27.55in * 0.45);
+bottom: 0.5in;
+position: absolute;
+}
+#main-img-right {
+width: 10%;
+right: 0.5in;
+bottom: 0.2in;
+position: absolute;
+}
+.main p {
+font-size: 150px;
+font-family: Special Elite;
+text-align: center;
+margin: 0;
+position: absolute;
+top: 50%;
+-ms-transform: translateY(-50%);
+transform: translateY(-50%);
+margin-left: 1em;
+}
+.fab {
+color: #00000060;
+font-size: 25px;
+}
+.twitter, i {
+color: #00000060;
+font-size: 35px;
+text-decoration: none;
+}
+a.email {
+text-decoration: none;
+color: #00000060;
+font-size: 35px;
+}
+.envelope {
+color: #00000060;
+font-size: 5px;
+text-decoration: none;
+}
+.globe {
+color: #00000060;
+font-size: 5px;
+text-decoration: none;
+}
+.globetext {
+color: #00000060;
+font-size: 35px;
+text-decoration: none;
+}
+.poster_wrap {
+width: 27.55in;
+height: 39.37in;
+padding: 0cm;
+}
+.main_bottom {
+width: 27.55in;
+height: calc(39.37in * 0.1);
+margin-top: calc(39.37in * (1 - 0.1));
+position: absolute;
+background-color: #487FD3;
+background-image: linear-gradient(#2B2F3C 10%, #487FD3);
+}
+.section {
+  padding-left: 10mm;
+  padding-right: 10mm;
+}
+span > #tab:mytable {
+  font-weight: bold;
+}
+.orcid img {
+  width: 3%;
+}
+.emphasis {
+  background-color: #008080;
+  color: #ffffff;
+  border: solid #0b2045 3mm;
+  margin: 1em;
+  padding-left: 0;
+  padding-right: 0;
+}
+.emphasis h1 {
+  font-weight: bold;
+  background: none;
+  background-color: #0b2045;
+  padding-bottom: 5mm;
+  padding-top: 1mm;
+  margin-top: -1mm;
+  margin-right: -1mm;
+  margin-left: -1mm;
+}
+.emphasis blockquote {
+  border: 0;
+}
+.emphasis ol {
+  padding: 0;
+  padding-left: 8%;
+  font-size: 100%;
+  font-weight: bold;
+}
+.emphasis p {
+  color: #ffffff;
+}
+</style>
+</head>
+<body>
+
+
+<div class="poster_wrap">
+
+<div class="column outer">
+<div class="section">
+<h1 id="title"><strong>Evaluación de (in)justicia distributiva en jóvenes de Centro-américa</strong></h1><br>
+<h3 id="author" class="author">
+
+<strong>Juan Diego García Castro</strong><sup> 12, <a class="orcid" href="https://orcid.org/0000-0002-9662-6547"><img src="https://raw.githubusercontent.com/brentthorne/posterdown/master/images/orcid.jpg"></a></sup><br>
+<a class="twitter" href="https://mobile.twitter.com/JuanDiego48cr"><i class="fab fa-twitter"></i>&nbsp;&nbsp;@JuanDiego48cr</a><br>
+
+<a class='envelope'><i class="fas fa-envelope"></i></a> <a href="mailto:JUANDIEGO.GARCIA@ucr.ac.cr" class="email">JUANDIEGO.GARCIA@ucr.ac.cr</a> <br>
+ Martín Venegas<sup> 2</sup><br>
+
+<a class='envelope'><i class="fas fa-envelope"></i></a> <a href="mailto:martin.venegas@ug.uchile.cl" class="email">martin.venegas@ug.uchile.cl</a> <br>
+  </h3>
+
+<h5 id="author_extra", class="author_extra">
+  Francisco Robles Rivera<sup>1</sup>
+ Lorenzo Ramírez Cardoza<sup>1</sup>
+</h5>
+
+
+<p id="affiliation" class="affiliation">
+<sup>1</sup> Univsersidad de Costa Rica<br> <sup>2</sup> Centro de Estudios de Conflicto y Coesión Social; Chile
+</p>
+</div>
+
+<div id="introducción" class="section level1">
+<h1>Introducción</h1>
+<p>A tres décadas de la firma de los acuerdos de paz, Centroamérica se mantiene como una región caracterizada por la extrema desigualdad y la violencia (Sandoval, 2020).</p>
+<p>A lo largo de los años, la literatura sobre desigualdad ha profundizado en sus componentes subjetivos, generando evidencia en regiones como Europa (Kluegel et al., 1995) y Latinoamérica (Cramer y Kauffman, 2011). Sin embargo, Centroamérica se ha caracterizado por una carencia de estudios sistemáticos sobre la región.</p>
+<p>Este trabajo busca explorar la dimensión subjetiva de la desigualdad en Centroamérica, considerando las particularidades de la región. Dos preguntas guían el estudio: ¿Cuál es la distribución de la evaluación de (in)justicia distributiva en Centroamérica? y, ¿Cuáles son sus predictores más relevantes?</p>
+</div>
+<div id="método" class="section level1">
+<h1>Método</h1>
+<p>Datos secundarios de cinco colonias Centroamericanas (Sandoval, 2020).</p>
+<p>El Limón en Ciudad de Guatemala, La Carpio en San José-Costa Rica, Popotlán en San Salvador-El Salvador, Nueva Capital en Tegucigalpa-Honduras y Jorge Dimitrov en Managua-Nicaragua.</p>
+<p>Participaron 1501 jóvenes entre los 14 y 24 años (M=18,7, DE=3,1) de las cuales el 53,3% son mujeres.</p>
+<p>Se emplean análisis de medias y regresiones lineales con eliminación hacia atrás.</p>
+</div>
+<div id="resultados" class="section level1">
+<h1>Resultados</h1>
+<p><font size="6"><em>Tabla 1. Medias de evaluaciones de (in)justicia en la distribución de riquezas por país</em></font></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center;">
+País
+</th>
+<th style="text-align:center;">
+N
+</th>
+<th style="text-align:center;">
+Media
+</th>
+<th style="text-align:center;">
+DE
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+Costa Rica
+</td>
+<td style="text-align:center;">
+298
+</td>
+<td style="text-align:center;">
+2.21
+</td>
+<td style="text-align:center;">
+1.24
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Nicaragua
+</td>
+<td style="text-align:center;">
+279
+</td>
+<td style="text-align:center;">
+2.34
+</td>
+<td style="text-align:center;">
+1.30
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Salvador
+</td>
+<td style="text-align:center;">
+298
+</td>
+<td style="text-align:center;">
+1.52
+</td>
+<td style="text-align:center;">
+0.82
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Guatemala
+</td>
+<td style="text-align:center;">
+296
+</td>
+<td style="text-align:center;">
+1.71
+</td>
+<td style="text-align:center;">
+1.12
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Honduras
+</td>
+<td style="text-align:center;">
+297
+</td>
+<td style="text-align:center;">
+1.98
+</td>
+<td style="text-align:center;">
+1.29
+</td>
+</tr>
+</tbody>
+</table>
+<p><font size="6">Nota: La evaluación de (in)justicia distributiva se midió en un rango de 1 a 5. A mayor valor mayor justicia se evalúa.</font></p>
+<p><img src="poster_centroamerica_files/figure-html/fig1-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><font size="6"><em>Figura 1. Coeficientes de regresión para evaluaciones de (in)justicia por país</em></font></p>
+</div>
+<div id="discusión" class="section level1">
+<h1>Discusión</h1>
+<ol style="list-style-type: decimal">
+<li><p>El país donde más justa se considera la distribución de riquezas es Nicaragua (Tabla 1). <strong>→ Construcción identitaria de la comunidad y relación con el gobierno.</strong></p></li>
+<li><p>La confianza en instituciones es un factor que incide positivamente en las evaluaciones de justicia distributiva en Centroamérica. Especialmente en Costa Rica. <strong>→ Discurso político de identidad nacional e imagen de igualdad (igual-íticos).</strong></p></li>
+<li><p>La falta de dinero para pagar la comida y la casa también resultan relevantes en varios países centroamericanos. <strong>→ Efecto de la privación absoluta y relativa (jóvenes en contexto de vulnerabilidad social).</strong></p></li>
+</ol>
+</div>
+<div id="agradecimientos" class="section level1">
+<h1>Agradecimientos</h1>
+<p>Agradecemos el apoyo del Centro de Estudios de Conflicto y Cohesión Social-COES (ANID/FONDAP/15130009).</p>
+</div>
+<div id="referencias" class="section level1">
+<h1>Referencias</h1>
+<ul>
+<li>Cramer, B. D., &amp; Kaufman, R. R. (2011). Views of Economic Inequality in Latin America. Comparative Political Studies, 44(9), 1206–1237. <a href="https://doi.org/10.1177/0010414010392171" class="uri">https://doi.org/10.1177/0010414010392171</a></li>
+<li>Kluegel, J. R., Mason, D. S., &amp; Wegener, B. (Eds.). (1995). Social justice and political change: Public opinion in capitalist and post-communist states. A. de Gruyter</li>
+<li>Sandoval, C. (2020). Demandas y expectativas de jóvenes residentes en colonias empobrecidas de Centroamérica. Estudios Centroamericanos ECA, Vol. 75 Núm. 761, 2020.</li>
+</ul>
+</div>
+
+</div>
+<div class="main">
+<p><strong>Confianza en instituciones</strong> y <strong>falta de dinero</strong> predicen las evaluaciones de <strong>(in)justicia</strong> en Centroamérica.</p>
+</div>
+<div class="main_bottom">
+<img id="main-img-left" src=https://coes.cl/wp-content/uploads/COES_Logo_sello1.png>
+<img id="main-img-center" src=https://raw.githubusercontent.com/brentthorne/posterdown/master/images/qr-code-black.png>
+<img id="main-img-right" src=https://accionsocial.ucr.ac.cr/sites/default/files/herramienta/imagenes/2020-12/Logo%20UCR%20transparentePNG.PNG>
+</div>
+</div>
+
+
+
+</body>
+</html>

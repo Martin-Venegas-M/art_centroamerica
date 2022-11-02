@@ -1,0 +1,37 @@
+<table style="border-collapse:collapse; border:none;">
+<caption>Data frame: tabla_independientes6</caption>
+<tr>
+<th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">ID</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Name</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Label</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Values</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Value Labels</th>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">1</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">cr_org_adultos_estudio</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">p46.1.Grado de acuerdo: Organizaciones creadas por<br>personas adultas con estudios</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2"><em>range: 1-10</em></td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">2</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">cr_org_gobs</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">p46.2.Grado de acuerdo: Organizaciones creadas por<br>gobiernos</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee" colspan="2"><em>range: 1-10</em></td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">3</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">cr_org_iglesias</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">p46.3.Grado de acuerdo: Organizaciones creadas por<br>iglesias</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2"><em>range: 1-10</em></td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">4</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">cr_org_pers_ud</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">p46.4.Grado de acuerdo: Persona como Ud. puede<br>crear organización</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee" colspan="2"><em>range: 1-10</em></td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">5</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">cr_org_partidos</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">p46.5.Grado de acuerdo: Organizaciones creadas por<br>partidos</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2"><em>range: 1-10</em></td>
+</tr>
+
+</table>

@@ -1,0 +1,401 @@
+---
+title: "Código de análisis de datos para artículo sobre jóvenes de Centroamerica - Base C"
+author: "Martín Venegas y Emilia Barrientos"
+date: "12/11/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+En este documento se presenta el análisis para el artículo "Evaluación de (in)justicia distributiva en jóvenes de Centroamérica" a cargo del investigador principal Juan Diego García. Específicamente, en este documento de utiliza la Base de Datos C, la cual corresponde a datos que se utilizarán para hacer análisis secundarios para el artículo.
+
+El documento se divide en tres secciones, En la primera sección se cargan las librerías para ejecutar el código. En la segunda sección se cargan los datos a analizar. En la tercera sección se procede al análisis de datos. En la sección de análisis de datos se prioriza la realización de modelos de regresión, los demás análisis no se incluyen en la hoja.
+
+```{r}
+# 0. Identificación -------------------------------------------------------
+
+#Título: Código de análisis de datos para artículo sobre jóvenes de Centroamérica
+#Institución: Centro de Estudios de Conflicto y Cohesión Social (COES)
+
+#Desactivar notación científica
+options(scipen=999)
+```
+
+```{r}
+# 1. Cargar librerías -----------------------------------------------------
+
+library(pacman)
+pacman::p_load(tidyverse,
+               sjmisc,
+               sjPlot, #Para realizar tablas
+               stats, # Test de Kruskal-Wallis
+               ggplot2, #Para realizar gráficos
+               rstatix, #Revisar normalidad
+               lattice,
+               olsrr,
+               nortest, #test Lilliefors
+               MASS,
+               summarytools,
+               VIM,
+               table1,
+               car)
+
+```  
+
+```{r}
+# 2. Cargar datos procesados ----------------------------------------------
+
+datos_proc_c <- readRDS("../input/data/datos_proc_c.rds")
+costa_rica_c <- readRDS("../input/data/costa_rica_c.rds")
+nicaragua_c <- readRDS("../input/data/nicaragua_c.rds") 
+el_salvador_c <- readRDS("../input/data/el_salvador_c.rds") 
+guatemala_c <- readRDS("../input/data/guatemala_c.rds") 
+honduras_c <- readRDS("../input/data/honduras_c.rds") 
+
+```
+
+```{r}
+# 3. Análisis de datos ----------------------------------------------------
+```
+
+```{r, results='asis'}
+
+# 3.0 Tabla general, tabla general por países y análisis NA-------------------------------------------------------
+
+# General
+df_gen2_c<- dfSummary(datos_proc_c,
+               plain.ascii = FALSE,
+               style = "grid",
+               tmp.img.dir = "/tmp",
+               graph.magnif = TRUE,
+               headings = F,  # encabezado
+               varnumbers = F, # num variable
+               labels.col = T, # etiquetas
+               na.col = T,    # missing
+               graph.col = T, # plot
+               valid.col = T, # n valido
+               col.widths = c(10,1000,10,10,10,10,10)
+               )
+# df_gen2_c$Variable <- NULL # delete variable column
+summarytools::view(df_gen2_c, file = "../output/tables/df_gen2_c.html") # Ver tabla en un archivo HTML
+
+
+# Costa rica
+
+df_costa_rica<- dfSummary(costa_rica_c,
+               plain.ascii = FALSE,
+               style = "grid",
+               tmp.img.dir = "/tmp",
+               graph.magnif = TRUE,
+               headings = F,  # encabezado
+               varnumbers = F, # num variable
+               labels.col = T, # etiquetas
+               na.col = T,    # missing
+               graph.col = T, # plot
+               valid.col = T, # n valido
+               col.widths = c(1000,10,10,10,10,10)
+               )
+df_costa_rica$Variable <- NULL # delete variable column
+summarytools::view(df_costa_rica, file = "../output/tables/df_costa_rica_c.html") # Ver tabla en un archivo HTML
+
+# El Salvador
+
+df_el_salvador<- dfSummary(el_salvador_c,
+               plain.ascii = FALSE,
+               style = "grid",
+               tmp.img.dir = "/tmp",
+               graph.magnif = TRUE,
+               headings = F,  # encabezado
+               varnumbers = F, # num variable
+               labels.col = T, # etiquetas
+               na.col = T,    # missing
+               graph.col = T, # plot
+               valid.col = T, # n valido
+               col.widths = c(1000,10,10,10,10,10)
+               )
+df_el_salvador$Variable <- NULL # delete variable column
+summarytools::view(df_el_salvador, file = "../output/tables/df_el_salvador_c.html") # Ver tabla en un archivo HTML
+
+# Guatemala
+
+df_guatemala<- dfSummary(guatemala_c,
+               plain.ascii = FALSE,
+               style = "grid",
+               tmp.img.dir = "/tmp",
+               graph.magnif = TRUE,
+               headings = F,  # encabezado
+               varnumbers = F, # num variable
+               labels.col = T, # etiquetas
+               na.col = T,    # missing
+               graph.col = T, # plot
+               valid.col = T, # n valido
+               col.widths = c(1000,10,10,10,10,10)
+               )
+df_guatemala$Variable <- NULL # delete variable column
+summarytools::view(df_guatemala, file = "../output/tables/df_guatemala_c.html") # Ver tabla en un archivo HTML
+
+# Honduras
+
+df_honduras<- dfSummary(honduras_c,
+               plain.ascii = FALSE,
+               style = "grid",
+               tmp.img.dir = "/tmp",
+               graph.magnif = TRUE,
+               headings = F,  # encabezado
+               varnumbers = F, # num variable
+               labels.col = T, # etiquetas
+               na.col = T,    # missing
+               graph.col = T, # plot
+               valid.col = T, # n valido
+               col.widths = c(1000,10,10,10,10,10)
+               )
+df_honduras$Variable <- NULL # delete variable column
+summarytools::view(df_honduras, file = "../output/tables/df_honduras_c.html") # Ver tabla en un archivo HTML
+
+# Nicaragua
+
+df_nicaragua<- dfSummary(nicaragua_c,
+               plain.ascii = FALSE,
+               style = "grid",
+               tmp.img.dir = "/tmp",
+               graph.magnif = TRUE,
+               headings = F,  # encabezado
+               varnumbers = F, # num variable
+               labels.col = T, # etiquetas
+               na.col = T,    # missing
+               graph.col = T, # plot
+               valid.col = T, # n valido
+               col.widths = c(10,1000,10,10,10,10,10)
+               )
+summarytools::view(df_nicaragua, file = "../output/tables/df_nicaragua_c.html") # Ver tabla en un archivo HTML
+
+```
+
+```{r eval=FALSE, include=FALSE}
+# 3. 1. Tabla de distribución de frecuencias ------------------------------
+
+#Crear dataframe 
+
+df1 <- datos_proc_c %>% #A partir de datos procesados
+    dplyr::select(pais, distribucion_de_riqueza) %>% #Con las variables de interés
+    na.omit(.) %>% #Omitiendo NA
+    group_cy(pais) %>% # Agrupo por país
+    summarise(N = n(), #N por país
+              Media = round(mean(distribucion_de_riqueza), 3), #La media redondeada de la variable dependiente por país
+              DE = round(sd(distribucion_de_riqueza), 3))# La desviación estándar redondeada de la variable dependiente por país
+
+# Descending order
+
+df1 <- df1[order(-df1$Media),]
+
+# Mostrar tabla
+sjPlot::tab_df(df1, #A partir del dataframe creado previamente 
+               title = "Tabla 1. Evaluación de justicia en la distribución de riquezas", #Título
+               encoding = "Latin-1",
+               footnote = "Se presenta el tamaño de muestra (N), la media (Media) y la desviación estándar (DE) de la variable dependiente para cada uno de los cinco países de Centroamerica. Una mayor media implica que se evalúa más justicia de parte de los encuestados")
+
+```
+
+
+```{r eval=FALSE, include=FALSE}
+# 3. 2. Gráfico de distribución de frecuencias ----------------------------
+
+# 3. 2. 1. Gráfico del promedio de la variable dependiente para cada país ----
+
+barras <- df1 %>%
+  ggplot(df1, #Definir valores por graficar
+         mapping = aes(x = pais, #Eje X
+             y = Media, #Eje Y
+             fill = Media)) + #Color de las barras
+  geom_car(stat = "identity", #Definir el eje Y como valor numérico
+           width = 0.75) + #Definir ancho de las barras
+  labs(title="Gráfico 1.", #Título 
+       x="Países",#Etiqueta eje X
+       y = "Promedio")+ #Etiqueta eje Y
+  theme_classic() 
+
+barras
+
+# ggsave(barras, file = "output/tables/barras.pdf", scale=2)
+
+# 3. 2. 2. Gráfico de la frecuencia de respuestas por cada país ----------------
+
+barras2 <- df1 %>%
+  ggplot(df1, #Definir valores por graficar
+         mapping = aes(x = pais, #Eje X
+                       y = N, #Eje Y
+                       fill = N)) + #Color de las barras
+  geom_car(stat = "identity", #Definir el eje Y como valor numérico
+           width = 0.75) + #Definir ancho de las barras
+  labs(title="Gráfico 1.", #Título 
+       x="Países",#Etiqueta eje X
+       y = "N")+ #Etiqueta eje Y
+  theme_classic() 
+
+barras2
+
+# ggsave(barras2, file = "output/tables/barras2.pdf", scale=2)
+
+```
+
+```{r eval=FALSE, include=FALSE}
+# 3. 3. Revisar la normalidad ---------------------------------------------
+
+# Test de Shapiro-Wilk ----------------------------------------------------
+
+#La hipótesis nula (H0) que la población está distribuida normalmente.
+#Si el p-valor es menor a alfa (nivel de significancia), entonces la hipótesis
+#nula es rechazada y se concluye que los datos no vienen de una distribución normal).
+
+#En este caso, la hipótesis nula es rechazada, por lo que se concluye que los
+#datos no se distribuyen normalmente. 
+
+norm_por_pais <- datos_proc_c %>%
+  dplyr::select(pais, distribucion_de_riqueza) %>% #Con las variables de interés
+  na.omit(.) %>% #Omitiendo NA
+  group_cy(pais) %>%
+  rstatix::shapiro_test(distribucion_de_riqueza)
+
+norm <- datos_proc_c %>%
+  rstatix::shapiro_test(distribucion_de_riqueza)
+
+lattice::histogram(~distribucion_de_riqueza|pais,
+                   data = datos_proc_c,
+                   layout = c(1,5))
+
+```
+
+Se aplica el test de Shapiro Wilk para determinar si los datos provienen de una distribución normal. Se aplica el test a nivel de toda la muestra así como también por país. Los resultados muestran que los datos, tanto a nivel general como por país, no se distribuyen normalmente.
+
+```{r eval=FALSE, include=FALSE}
+# 3. 4. Comparación de medias ---------------------------------------------
+
+car::leveneTest(distribucion_de_riqueza ~ pais, data = datos_proc_c, center = "median")
+
+# Test de Kruskal Wallis --------------------------------------------------
+
+ datos_proc_c %>%
+  rstatix::kruskal_test(distribucion_de_riqueza~pais)
+
+# Comparaciones Post - Hoc -------------------------------------------------
+
+pairwise.wilcox.test(x = datos_proc_c$distribucion_de_riqueza, g = datos_proc_c$pais, p.adjust.method = "holm" )
+
+```
+
+
+```{r}
+# 3. 5. Regresión lineal stepwise backwards -------------------------------
+
+# 3. 5. 2. Modelo para Costa Rica -----------------------------------------
+
+costa_rica_reg <- costa_rica_c %>% dplyr::select(-conf_ejercito) %>% na.omit() # hacer una base sin NA para las regresiones y qutiar variable de confianza ejercitos (ya que tiene puros NA)
+
+
+intercept_only_costa_rica <- lm(distribucion_de_riqueza ~ 1, data = costa_rica_reg) # crear base solo con interceptio
+
+all_costa_rica <- lm(distribucion_de_riqueza ~., data = costa_rica_reg) # crear modelo de regresión con todos los predictores para hacer backward
+
+# NOTA: Quitando horas_trabajo el modelo funciona. Queda con un n de 105. Quitando seguro_social queda con un n de 226. OJO: esas variables las excluí en el script de procesamiento, pero aquí igual apliqué un na-omit para las otras variables que contenían NA.
+
+stargazer::stargazer(all_costa_rica, type = "text") # mostrar tabla para modelo con todos los predictores
+
+
+# Elaborar modelos por backard step
+backward_costa_rica <- step(all_costa_rica, direction = "backward") # crear moidelo
+summary(backward_costa_rica) # Esto muestra el modelo con mejor ajuste
+
+```
+
+En el presente modelo se cambia la forma en la que se introducen las variables de confianza en las instituciones. En vez de introducir esas variables como un indice de promedio simple, se introducen cada variable por separado. En el caso de Costa Rica, se observa que la única variable que presenta un valor significativo es la edad, donde quienes son más viejos evalúan menos justicia (*β* = -0.091, *p* < 0.01).
+
+
+```{r}
+# 3. 5. 3. Modelo para Nicaragua ------------------------------------------
+
+nicaragua_reg <- nicaragua_c %>% dplyr::select(-conf_policia_mun) %>% na.omit() # hacer una base sin NA para las regresiones y qutiar variable de confianza ejercitos (ya que tiene puros NA)
+
+intercept_only_nicaragua <- lm(distribucion_de_riqueza ~ 1, data = nicaragua_reg) # hacer una base con solo el intercepto como prueba
+
+all_nicaragua <- lm(distribucion_de_riqueza ~., data = nicaragua_reg) # crear modelo de regresión con todos los predicores para hacer backward
+
+stargazer::stargazer(all_nicaragua, type = "text") # ver modelo de regresión con todos los predictores
+
+# Calcular modelos por backward step
+backward_nicaragua <- step(all_nicaragua, direction = "backward") # crear modelo backward
+backward_nicaragua$anova # ver anova 
+backward_nicaragua$coefficients # ver coeficientes
+summary(backward_nicaragua) # Esto muestra el modelo con mejor ajuste
+```
+
+En el caso de Nicaragua, se observan algunas similitudes con el modelo de la Base A y Base B. Quienes **con mucha frecuencia** (*β* = -1.43, *p* < 0.001) se quedan sin dinero para pagar la comida evalúan menos justicia en comparacion a quienes nunca les sucede tal situación. Por otro lado, a mayor grado de acuerdo con que es el gobierno quien crea las organizaciones (*β* = -2.117, *p* < 0.001) evalúan más justicia en la distribución de riquezas. Además quienes **con mucha frecuencia** se quedan sin dinero para pagar la casa evalúan más justicia (*β* = 4.710, *p* < 0.01) que a quienes nunca les ha ocurrido esa situación.  
+Por último, a mayor grado de acuerdo respecto a que las organizaciones las crea el gobierno se evalúa más justicia (*β* = 0.089, *p* < 0.01).
+
+```{r}
+# 3. 5. 4. Modelo para El Salvador ----------------------------------------
+
+el_salvador_reg <- na.omit(el_salvador_c) # hacer una base sin NA para las regresiones
+
+intercept_only_el_salvador <- lm(distribucion_de_riqueza ~ 1, data = el_salvador_reg) # hacer una base con solo el intercepto como prueba
+
+all_el_salvador <- lm(distribucion_de_riqueza ~., data = el_salvador_reg) # crear modelo de regresión con todos los predictores para hacer backward
+
+stargazer::stargazer(all_el_salvador, type = "text") # ver modelo de regresión con todos los predictores
+
+# Calcular modelos por backward step
+backward_el_salvador <- step(all_el_salvador, direction = "backward") # crear modelo backward
+backward_el_salvador$anova # ver anova 
+backward_el_salvador$coefficients # ver coeficientes
+summary(backward_el_salvador) # Esto muestra el modelo con mejor ajuste
+```
+
+En El Salvador, el análisis de la Base C se puede apreciar una capacidad predictiva mayor en la confianza de algunas instituciones por sobre otras. Primero, quienes confían de forma regular en la alcaldía evalúan menos justicia que quienes confían poco (*β* = -0.357, *p* < 0.01). Segundo, quienes confían harto en la asamblea de diputados evalúan más justicia que quienes confían poco (*β* = 0.489, *p* < 0.01). Tercero, quienes confían de manera regular en los medios de comunicación evalúan más justicia que quienes confían poco (*β* = 0.408, *p* < 0.01). Y por último, quienes confían de forma regular en los sindicatos evalúan más justicia que quienes confían poco (*β* = 0.298, *p* < 0.01).
+
+Por otro lado, también se observa que otras variables ya antes mencionadas también son relevantes. Por ejemplo, a mayor edad menos justicia se evalúa (*β* = -0.046, *p* < 0.01) y quienes **algunas veces** se quedan sin dinero para pagar la casa evalúan menos justicia que quienes nunca se quedan sin dinero para pagar la casa (*β* = -0.362, *p* < 0.01). También, quienes tienen miedo a ser victimas de violencia evalúan más justicia en la distribución de riquezas que quienes nunca tienen ese miedo (*β* = 0.526, *p* < 0.01) y a mayor grado de acuerdo respecto a que las organizaciones las crean el gobierno se evalúa más justicia por parte de los jovenes (*β* = 0.046, *p* < 0.01).
+
+Por último, a mayor valoración de que los dirigentes comuniquen los problemas a las autoridades (*β* = -0.093, *p* < 0.001) menos justicia se evalúa y mayor percepción positiva del pasado más justicia en la distribución de riquezas se evalúa (*β* = -0, *p* < 0.01).
+
+```{r}
+# 3. 5. 5. Modelo para Guatemala ------------------------------------------
+guatemala_reg <- na.omit(guatemala_c) # hacer una base sin NA para las regresiones
+
+intercept_only_guatemala <- lm(distribucion_de_riqueza ~ 1, data = guatemala_reg) # hacer una base con solo el intercepto como prueba
+
+all_guatemala <- lm(distribucion_de_riqueza ~., data = guatemala_reg) # crear modelo de regresión con todos los predicores para hacer backward
+
+stargazer::stargazer(all_guatemala, type = "text") # ver modelo de regresión con todos los predictores
+
+# Calcular modelos por backward step
+backward_guatemala <- step(all_guatemala, direction = "backward") # crear modelo backward
+backward_guatemala$anova # ver anova 
+backward_guatemala$coefficients # ver coeficientes
+summary(backward_guatemala) # Esto muestra el modelo con mejor ajuste
+
+```
+
+El análisis de la Base C en Guatemala muestra el mismo patrón positivo que se ha encontrado respecto a la edad (*β* = -0.049, *p* < 0.01). También, se aprecia que quienes **con frecuencia** se quedan sin dinero para comprar comida evalúan más justicia que aquellos a quienes nunca les ocurre (*β* = 1.311, *p* < 0.01) y que quienes tienen miedo de ser victimas de violencia evalúan menos justicia que quienes no tienen ese miedo (*β* = -0.536, *p* < 0.01).
+
+En lo que respecta a la confianza en distintas instituciones, se puede ver que quienes confían de forma regular (*β* = 0.655, *p* < 0.01) y alta (*β* = 0.527, *p* < 0.01) en las universidades evalúan más justicia que quienes no lo hacen. También, quienes confían de forma regular en los sindicatos (*β* = -0.480, *p* < 0.01) evalúan menos justicia que quienes no lo hacen. Por último, quienes confían de forma regular en los partidos políticos (*β* = 0.615, *p* < 0.001) evalúan más justicia distributiva que quienes no lo hacen.
+
+```{r}
+# 3. 5. 6. Modelo para Honduras -------------------------------------------
+
+honduras_reg <- na.omit(honduras_c) # hacer una base sin NA para las regresiones
+
+intercept_only_honduras <- lm(distribucion_de_riqueza ~ 1, data = honduras_reg) # hacer una base con solo el intercepto como prueba
+
+all_honduras <- lm(distribucion_de_riqueza ~., data = honduras_reg) # crear modelo de regresión con todos los predicores para hacer backward
+
+stargazer::stargazer(all_honduras, type = "text") # ver modelo de regresión con todos los predictores
+
+# Calcular modelos por backward step
+backward_honduras <- step(all_honduras, direction = "backward") # crear modelo backward
+backward_honduras$anova # ver anova 
+backward_honduras$coefficients # ver coeficientes
+summary(backward_honduras) # Esto muestra el modelo con mejor ajuste
+```
+
+
+En el caso de Honduras, el análisis con la Base C muestra que quienes algunas veces se quedan sin dinero para pagar el bus (*β* = 0.596, *p* < 0.01) y quienes confían de forma regular en la alcaldía (*β* = 0.559, *p* < 0.01) evalúan más justicia que quienes nunca se han quedado sin dinero para pagar el bus y quienes no confían en la alcaldía, respectivamente.

@@ -1,0 +1,43 @@
+<table style="border-collapse:collapse; border:none;">
+<caption>Data frame: tabla_independientes7</caption>
+<tr>
+<th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">ID</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Name</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Label</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Values</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Value Labels</th>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">1</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">val_org_resuelvan</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">p47.1.Valoración: Dirigentes resuelvan problemas</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2"><em>range: 1-10</em></td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">2</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">val_org_escuchan</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">p47.2.Valoración: Dirigentes escuchen opiniones</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee" colspan="2"><em>range: 1-10</em></td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">3</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">val_org_comuniquen</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">p47.3.Valoración: Dirigentes comuniquen problemas<br>a autoridades</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2"><em>range: 1-10</em></td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">4</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">val_org_recolecten</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">p47.4.Valoración: Dirigentes recolecten fondos<br>para ayudar</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee" colspan="2"><em>range: 1-10</em></td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">5</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">val_org_consejos</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">p47.5.Valoración: Dirigentes den consejos<br>prácticos</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2"><em>range: 1-10</em></td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">6</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">val_org_lideres</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">p47.6.Valoración: Dirigentes sean líderes<br>democráticos</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee" colspan="2"><em>range: 1-10</em></td>
+</tr>
+
+</table>

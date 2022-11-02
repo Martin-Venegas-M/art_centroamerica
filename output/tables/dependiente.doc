@@ -1,0 +1,14 @@
+<table style="border-collapse:collapse; border:none;">
+<caption>Data frame: tabla_dependiente</caption>
+<tr>
+<th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">ID</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Name</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Label</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Values</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Value Labels</th>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">1</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">distribucion_de_riqueza</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">p22. Percepción de justicia de la distribución de<br>la riqueza en su país</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;"></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">Muy injusta<br>Un poco injusta<br>Ni justa ni injusta<br>Un poco justa<br>Muy justa</td>
+</tr>
+
+</table>

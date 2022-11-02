@@ -1,0 +1,119 @@
+<table style="border-collapse:collapse; border:none;">
+<caption>Data frame: tabla_independientes3</caption>
+<tr>
+<th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">ID</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Name</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Label</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Values</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Value Labels</th>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">1</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">conf_ig_catolica</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">p39.1.Nivel de confianza en instituciones:Iglesia<br>católica</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;"></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">Baja<br>Regular<br>Alta</td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">2</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">conf_ig_no_catolica</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">p39.2.Nivel de confianza en instituciones: Iglesia<br>no católica</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee"></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">Baja<br>Regular<br>Alta</td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">3</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">conf_gob_central</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">p39.3.Nivel de confianza en instituciones:<br>Gobierno central</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;"></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">Baja<br>Regular<br>Alta</td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">4</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">conf_alcaldia</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">p39.4.Nivel de confianza en instituciones:<br>Alcaldía de su municipio</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee"></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">Baja<br>Regular<br>Alta</td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">5</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">conf_asamblea_dip</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">p39.5.Nivel de confianza en instituciones:<br>Asamblea de diputados</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;"></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">Baja<br>Regular<br>Alta</td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">6</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">conf_universidades</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">p39.6.Nivel de confianza en instituciones:<br>Universidades</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee"></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">Baja<br>Regular<br>Alta</td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">7</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">conf_empresa_priv</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">p39.7.Nivel de confianza en instituciones: Empresa<br>privada</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;"></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">Baja<br>Regular<br>Alta</td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">8</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">conf_medios_comunicacion</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">p39.8.Nivel de confianza en instituciones: Medios<br>de comunicación</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee"></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">Baja<br>Regular<br>Alta</td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">9</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">conf_sindicatos</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">p39.9.Nivel de confianza en instituciones:<br>Sindicatos</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;"></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">Baja<br>Regular<br>Alta</td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">10</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">conf_policia_mun</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">p39.10.Nivel de confianza en instituciones:<br>Policía municipal</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee"></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">Baja<br>Regular<br>Alta</td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">11</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">conf_policia_nac</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">p39.11.Nivel de confianza en instituciones:<br>Policía Nacional</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;"></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">Baja<br>Regular<br>Alta</td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">12</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">conf_ejercito</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">p39.12.Nivel de confianza en instituciones:<br>Ejército</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee"></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">Baja<br>Regular<br>Alta</td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">13</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">conf_partidos</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">p39.13.Nivel de confianza en instituciones:<br>Partidos políticos</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;"></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">Baja<br>Regular<br>Alta</td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">14</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">conf_alcalde</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">p39.14.Nivel de confianza en instituciones:<br>Alcalde de su municipio</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee"></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">Baja<br>Regular<br>Alta</td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">15</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">conf_jueces</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">p39.15.Nivel de confianza en instituciones: Jueces</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;"></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">Baja<br>Regular<br>Alta</td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">16</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">conf_centros_educ</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">p39.16.Nivel de confianza en instituciones:<br>Centros educativos</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee"></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">Baja<br>Regular<br>Alta</td>
+</tr>
+
+</table>

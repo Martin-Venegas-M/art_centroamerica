@@ -1,0 +1,35 @@
+<table style="border-collapse:collapse; border:none;">
+<caption>Data frame: tabla_independientes4</caption>
+<tr>
+<th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">ID</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Name</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Label</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Values</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Value Labels</th>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">1</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">ac_obedecer_autoridad_gob</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">p41.1.Grado de acuerdo:Obedecer autoridades del<br>gobierno, aunque no tengan razón</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;"></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">Muy en desacuerdo<br>En desacuerdo<br>Ni de acuerdo ni en desacuerdo<br>De acuerdo<br>Muy de acuerdo</td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">2</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">ac_obedecer_padres</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">p41.2.Grado de acuerdo:Obedecer a los padres,<br>aunque no se hayan ganado el respeto</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee"></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">Muy en desacuerdo<br>En desacuerdo<br>Ni de acuerdo ni en desacuerdo<br>De acuerdo<br>Muy de acuerdo</td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">3</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">ac_destino</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">p41.3.Grado de acuerdo:Todos tenemos un destino<br>que no depende de nosotros</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;"></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">Muy en desacuerdo<br>En desacuerdo<br>Ni de acuerdo ni en desacuerdo<br>De acuerdo<br>Muy de acuerdo</td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">4</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">ac_mano_dura</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">p41.4.Grado de acuerdo:La mano dura va a acabar<br>con los problemas del país </td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee"></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">Muy en desacuerdo<br>En desacuerdo<br>Ni de acuerdo ni en desacuerdo<br>De acuerdo<br>Muy de acuerdo</td>
+</tr>
+
+</table>

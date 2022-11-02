@@ -1,0 +1,35 @@
+<table style="border-collapse:collapse; border:none;">
+<caption>Data frame: tabla_independientes1</caption>
+<tr>
+<th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">ID</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Name</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Label</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Values</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Value Labels</th>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">1</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">dinero_comida</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">p23.Quedarse sin dinero para comprar la comida? </td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;"></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">Nunca<br>Muy pocas veces<br>Pocas veces<br>Algunas veces<br>Con frecuencia<br>Con mucha frecuencia</td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">2</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">dinero_casa</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">p24.Quedarse sin dinero para pagar la casa</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee"></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">Nunca<br>Muy pocas veces<br>Pocas veces<br>Algunas veces<br>Con frecuencia<br>Con mucha frecuencia</td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">3</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">dinero_buses</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">p25.Quedarse sin dinero para pagar autobuses?</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;"></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">Nunca<br>Muy pocas veces<br>Pocas veces<br>Algunas veces<br>Con frecuencia<br>Con mucha frecuencia</td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">4</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">victimas_violencia</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">p27.Miedo de ser víctimas de la violencia en la<br>comunidad</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee"></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">Nada de miedo<br>Poco miedo<br>Miedo<br>Mucho miedo</td>
+</tr>
+
+</table>

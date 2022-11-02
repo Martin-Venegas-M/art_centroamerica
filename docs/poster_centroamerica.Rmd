@@ -1,0 +1,275 @@
+---
+main_topsize: 0.2 #percent coverage of the poster
+main_bottomsize: 0.1
+#ESSENTIALS
+title: '**Evaluación de (in)justicia distributiva en jóvenes de Centro-américa**'
+author:
+  - name: '**Juan Diego García Castro**'
+    affil: 12
+    main: true
+    orcid: '0000-0002-9662-6547'
+    twitter: JuanDiego48cr
+    email: JUANDIEGO.GARCIA@ucr.ac.cr
+  - name: Martín Venegas
+    affil: 2
+    main: true
+    email: 'martin.venegas@ug.uchile.cl'
+  - name: Francisco Robles Rivera
+    affil: 1
+  - name: Lorenzo Ramírez Cardoza
+    affil: 1
+affiliation:
+  - num: 1
+    address: Univsersidad de Costa Rica
+  - num: 2
+    address: Centro de Estudios de Conflicto y Coesión Social; Chile
+main_fontfammily: "Helvetica"
+main_findings:
+  - "**Confianza en instituciones** y **falta de dinero** predicen las evaluaciones de **(in)justicia** en Centroamérica."
+logoleft_name: https&#58;//coes.cl/wp-content/uploads/COES_Logo_sello1.png
+logoright_name: https&#58;//accionsocial.ucr.ac.cr/sites/default/files/herramienta/imagenes/2020-12/Logo%20UCR%20transparentePNG.PNG
+logocenter_name: https&#58;//raw.githubusercontent.com/brentthorne/posterdown/master/images/qr-code-black.png
+output: 
+  posterdown::posterdown_betterport:
+    self_contained: false
+    pandoc_args: --mathjax
+    number_sections: false
+bibliography: packages.bib
+link-citations: true
+poster_height: 39.37in
+poster_width: 27.55in
+primary_colour: "#487FD3"	
+secondary_colour: "#2B2F3C"
+accent_colour: "#824293"
+lang: es
+
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      warning = FALSE,
+                      tidy = FALSE,
+                      message = FALSE,
+                      fig.align = 'center',
+                      out.width = "100%")
+options(knitr.table.format = "html") 
+```
+
+# Introducción
+
+A tres décadas de la firma de los acuerdos de paz, Centroamérica se mantiene como una región caracterizada por la extrema desigualdad y la violencia (Sandoval, 2020).  
+
+A lo largo de los años, la literatura sobre desigualdad ha profundizado en sus componentes subjetivos, generando evidencia en regiones como Europa (Kluegel et al., 1995) y Latinoamérica (Cramer y Kauffman, 2011). Sin embargo, Centroamérica se ha caracterizado por una carencia de estudios sistemáticos sobre la región.
+
+Este trabajo busca explorar la dimensión subjetiva de la desigualdad en Centroamérica, considerando las particularidades de la región. Dos preguntas guían el estudio: ¿Cuál es la distribución de la evaluación de (in)justicia distributiva en Centroamérica? y, ¿Cuáles son sus predictores más relevantes?
+
+
+```{r, include=FALSE}
+knitr::write_bib(c('posterdown', 'rmarkdown','pagedown'), 'packages.bib')
+```
+
+# Método
+
+Datos secundarios de cinco colonias Centroamericanas (Sandoval, 2020).
+
+El Limón en Ciudad de Guatemala, La Carpio en San José-Costa Rica, Popotlán en San Salvador-El Salvador, Nueva Capital en Tegucigalpa-Honduras y Jorge Dimitrov en Managua-Nicaragua.
+
+Participaron 1501 jóvenes entre los 14 y 24 años (M=18,7, DE=3,1) de las cuales el 53,3% son mujeres.  
+
+Se emplean análisis de medias y regresiones lineales con eliminación hacia atrás.
+
+
+# Resultados
+
+<font size="6">*Tabla 1. Medias de evaluaciones de (in)justicia en la distribución de riquezas por país*</font>
+
+```{r, table1}
+library(dplyr)
+readxl::read_excel("../input/others/table1.xlsx") %>% 
+knitr::kable(format = "html",
+  #caption = "Medias de evaluacions de (in)justicia en la distribución de riquezas por país",
+  align = "c",
+  escape = FALSE)
+```
+<font size="6">Nota: La evaluación de (in)justicia distributiva se midió en un rango de 1 a 5. A mayor valor mayor justicia se evalúa.</font>
+
+
+```{r include=FALSE}
+
+datos_proc_a <- readRDS("../input/data/datos_proc_a.rds")
+costa_rica_a <- readRDS("../input/data/costa_rica_a.rds")
+nicaragua_a <- readRDS("../input/data/nicaragua_a.rds") 
+el_salvador_a <- readRDS("../input/data/el_salvador_a.rds") 
+guatemala_a <- readRDS("../input/data/guatemala_a.rds") 
+honduras_a <- readRDS("../input/data/honduras_a.rds") 
+
+# 3. 5. Regresión lineal stepwise backwards -------------------------------
+
+# 3. 5. 1. Modelo general (toda la muestra) -----------------------------------------------
+
+general_reg <- na.omit(datos_proc_a) # hacer una base sin NA para las regresiones
+
+intercept_only_general <- lm(distribucion_de_riqueza ~ 1, data = general_reg) # crear base solo con interceptio
+
+all_general<- lm(distribucion_de_riqueza ~., data = general_reg) # crear modelo de regresión con todos los predictores para hacer backward
+
+# NOTA: Quitando horas_trabajo el modelo funciona. Queda con un n de 105. Quitando seguro_social queda con un n de 226. OJO: esas variables las excluí en el script de procesamiento, pero aquí igual apliqué un na-omit para las otras variables que contenían NA.
+
+stargazer::stargazer(all_general, type = "text") # mostrar tabla para modelo con todos los predictores
+
+
+# Elaborar modelos por backard step
+backward_general<- step(all_general, direction = "backward") # crear moidelo
+bgen <- summary(backward_general) # Esto muestra el modelo con mejor ajuste
+
+# 3. 5. 2. Modelo para Costa Rica -----------------------------------------
+
+costa_rica_reg <- na.omit(costa_rica_a) # hacer una base sin NA para las regresiones
+
+intercept_only_costa_rica <- lm(distribucion_de_riqueza ~ 1, data = costa_rica_reg) # crear base solo con interceptio
+
+all_costa_rica <- lm(distribucion_de_riqueza ~., data = costa_rica_reg) # crear modelo de regresión con todos los predictores para hacer backward
+
+# NOTA: Quitando horas_trabajo el modelo funciona. Queda con un n de 105. Quitando seguro_social queda con un n de 226. OJO: esas variables las excluí en el script de procesamiento, pero aquí igual apliqué un na-omit para las otras variables que contenían NA.
+
+stargazer::stargazer(all_costa_rica, type = "text") # mostrar tabla para modelo con todos los predictores
+
+
+# Elaborar modelos por backard step
+backward_costa_rica <- step(all_costa_rica, direction = "backward") # crear moidelo
+bcr <- summary(backward_costa_rica) # Esto muestra el modelo con mejor ajuste
+
+# 3. 5. 3. Modelo para Nicaragua ------------------------------------------
+
+nicaragua_reg <- na.omit(nicaragua_a) # hacer una base sin NA para las regresiones
+
+intercept_only_nicaragua <- lm(distribucion_de_riqueza ~ 1, data = nicaragua_reg) # hacer una base con solo el intercepto como prueba
+
+all_nicaragua <- lm(distribucion_de_riqueza ~., data = nicaragua_reg) # crear modelo de regresión con todos los predicores para hacer backward
+
+stargazer::stargazer(all_nicaragua, type = "text") # ver modelo de regresión con todos los predictores
+
+# Calcular modelos por backward step
+backward_nicaragua <- step(all_nicaragua, direction = "backward") # crear modelo backward
+bn <- summary(backward_nicaragua) # Esto muestra el modelo con mejor ajuste
+
+# 3. 5. 4. Modelo para El Salvador ----------------------------------------
+
+el_salvador_reg <- na.omit(el_salvador_a) # hacer una base sin NA para las regresiones
+
+intercept_only_el_salvador <- lm(distribucion_de_riqueza ~ 1, data = el_salvador_reg) # hacer una base con solo el intercepto como prueba
+
+all_el_salvador <- lm(distribucion_de_riqueza ~., data = el_salvador_reg) # crear modelo de regresión con todos los predictores para hacer backward
+
+stargazer::stargazer(all_el_salvador, type = "text") # ver modelo de regresión con todos los predictores
+
+# Calcular modelos por backward step
+backward_el_salvador <- step(all_el_salvador, direction = "backward") # crear modelo backward
+bes <- summary(backward_el_salvador) # Esto muestra el modelo con mejor ajuste
+
+# 3. 5. 5. Modelo para Guatemala ------------------------------------------
+guatemala_reg <- na.omit(guatemala_a) # hacer una base sin NA para las regresiones
+
+intercept_only_guatemala <- lm(distribucion_de_riqueza ~ 1, data = guatemala_reg) # hacer una base con solo el intercepto como prueba
+
+all_guatemala <- lm(distribucion_de_riqueza ~., data = guatemala_reg) # crear modelo de regresión con todos los predicores para hacer backward
+
+stargazer::stargazer(all_guatemala, type = "text") # ver modelo de regresión con todos los predictores
+
+# Calcular modelos por backward step
+backward_guatemala <- step(all_guatemala, direction = "backward") # crear modelo backward
+bg <- summary(backward_guatemala) # Esto muestra el modelo con mejor ajuste
+
+# 3. 5. 6. Modelo para Honduras -------------------------------------------
+
+honduras_reg <- na.omit(honduras_a) # hacer una base sin NA para las regresiones
+
+intercept_only_honduras <- lm(distribucion_de_riqueza ~ 1, data = honduras_reg) # hacer una base con solo el intercepto como prueba
+
+all_honduras <- lm(distribucion_de_riqueza ~., data = honduras_reg) # crear modelo de regresión con todos los predicores para hacer backward
+
+stargazer::stargazer(all_honduras, type = "text") # ver modelo de regresión con todos los predictores
+
+# Calcular modelos por backward step
+backward_honduras <- step(all_honduras, direction = "backward") # crear modelo backward
+bh <- summary(backward_honduras) # Esto muestra el modelo con mejor ajuste
+
+```
+
+```{r,fig1, out.width="100%"}
+
+jtools::plot_summs(bgen, bcr, bn, bes, bg, bh,
+           model.names = c("General",
+                           "Costa Rica",
+                           "Nicaragua",
+                           "El Salvador",
+                           "Guatemala",
+                           "Honduras"),
+          
+           coefs = c(##"Pais|Nicaragua" = "paisNicaragua",
+                     ##"Pais|Salvador" = "paisSalvador",
+                     ##"Pais|Guatemala" = "paisGuatemala",
+                     ##"Pais|Honduras" = "paisHonduras",
+                     ##"Edad" = "edad",
+                     # "Trabajo remmunerado|Si" = "trabajo_remuneradoSí",
+                     ##"Número de personas en la casa" = "personas_casa",
+                     "Dinero Comida|Muy pocas veces" = "dinero_comidaMuy pocas veces",
+                     # "Dinero Comida|Pocas veces" = "dinero_comidaPocas veces",
+                     "Dinero Comida|Algunas veces" = "dinero_comidaAlgunas veces",
+                     "Dinero Comida|Con frecuencia" = "dinero_comidaCon frecuencia",
+                     "Dinero Comida|Con mucha frecuencia" = "dinero_comidaCon mucha frecuencia",
+                     # "Dinero Casa|Muy pocas veces" = "dinero_casaMuy pocas veces",
+                     # "Dinero Casa|Pocas veces" = "dinero_casaPocas veces",
+                     # "Dinero Casa|Algunas veces" = "dinero_casaAlgunas veces",
+                     # "Dinero Casa|Con frecuencia" = "dinero_casaCon frecuencia",
+                     "Dinero Casa|Con mucha frecuencia" = "dinero_casaCon mucha frecuencia",
+                     # "Dinero Buses|Muy pocas veces" = "dinero_busesMuy pocas veces",
+                     # "Dinero Buses|Pocas veces" = "dinero_busesPocas veces",
+                     # "Dinero Buses|Algunas veces" = "dinero_busesAlgunas veces",
+                     # "Dinero Buses|Con frecuencia" = "dinero_busesCon frecuencia",
+                     # "Dinero Buses|Con mucha frecuencia" = "dinero_busesCon mucha frecuencia",
+                     # "Victimas Violencia|Poco miedo" = "victimas_violenciaPoco miedo",
+                     ##"Victimas Violencia|Miedo" = "victimas_violenciaMiedo",
+                     ##"Victimas Violencia|Mucho miedo" = "victimas_violenciaMucho miedo",
+                     ##"Se necesitan Org. Derechos Sexuales" = "org_dd_sexuales",
+                     "Se necesitan Org. DDHH" = "org_ddhh",
+                     "Se necesitan Org. Religión" = "org_religion",
+                     "Se necesitan Org. Prevención Drogas" = "org_prev_drogas",
+                     "Se necesitan Org. Empleo" = "org_empleo",
+                     ##"Orgs. se crean por adultos con estudios" = "cr_org_adultos_estudio",
+                     ##"Orgs. se crean por personas como ud." = "cr_org_pers_ud",
+                     ##"Orgs. se crean por el gobierno" = "cr_org_gobs",
+                     ##"Orgs se crean por las iglesas" = "cr_org_iglesias",
+                     ##"Se valora que dirigentes recolecten fondos" = "val_org_recolecten",
+                     # "Se valora que dirigentes sean lideres democraticos" = "val_org_lideres",
+                     ##"Se valora que dirigentes escuchen" = "val_org_escuchan",
+                     # "Se valora que dirigentes resuelvan problemas" = "val_org_resuelvan",
+                     ##"Indice percepción situación actual" = "ind_perc",
+                     ##"Indice percepción pasado" = "ind_perc_pas",
+                     "Indice confianza instituciones" = "ind_conf_inst"
+                     # "Indice autoritarismo" = "ind_aut"),
+           ),
+           scale = TRUE
+           )
+
+```
+
+<font size="6">*Figura 1. Coeficientes de regresión para evaluaciones de (in)justicia por país*</font>
+
+# Discusión
+
+1. El país donde más justa se considera la distribución de riquezas es Nicaragua (Tabla 1). **→ Construcción identitaria de la comunidad y relación con el gobierno.**
+
+2. La confianza en instituciones es un factor que incide positivamente en las evaluaciones de justicia distributiva en Centroamérica. Especialmente en Costa Rica. **→ Discurso político de identidad nacional e imagen de igualdad (igual-íticos).**
+
+3. La falta de dinero para pagar la comida y la casa también resultan relevantes en varios países centroamericanos. **→ Efecto de la privación absoluta y relativa (jóvenes en contexto de vulnerabilidad social).**
+
+# Agradecimientos
+
+Agradecemos el apoyo del Centro de Estudios de Conflicto y Cohesión Social-COES (ANID/FONDAP/15130009).
+
+# Referencias
+
+- Cramer, B. D., & Kaufman, R. R. (2011). Views of Economic Inequality in Latin America. Comparative Political Studies, 44(9), 1206–1237. https://doi.org/10.1177/0010414010392171
+- Kluegel, J. R., Mason, D. S., & Wegener, B. (Eds.). (1995). Social justice and political change: Public opinion in capitalist and post-communist states. A. de Gruyter
+- Sandoval, C. (2020). Demandas y expectativas de jóvenes residentes en colonias empobrecidas de Centroamérica. Estudios Centroamericanos ECA, Vol. 75 Núm. 761,  2020.

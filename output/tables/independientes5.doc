@@ -1,0 +1,49 @@
+<table style="border-collapse:collapse; border:none;">
+<caption>Data frame: tabla_independientes5</caption>
+<tr>
+<th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">ID</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Name</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Label</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Values</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Value Labels</th>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">1</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">org_ddhh</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">p45.1.Percepción requerimiento organizaciones:<br>Derechos Humanos</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2"><em>range: 1-10</em></td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">2</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">org_medio_amb</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">p45.2.Percepción requerimiento organizaciones:<br>Medio ambiente</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee" colspan="2"><em>range: 1-10</em></td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">3</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">org_religion</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">p45.3.Percepción requerimiento organizaciones:<br>Religión</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2"><em>range: 1-10</em></td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">4</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">org_dd_sexuales</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">p45.4.Percepción requerimiento organizaciones:<br>Derechos sexuales</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee" colspan="2"><em>range: 1-10</em></td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">5</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">org_prev_drogas</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">p45.5.Percepción requerimiento organizaciones:<br>Prevención de consumo de drogas</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2"><em>range: 1-10</em></td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">6</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">org_empleo</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">p45.6.Percepción requerimiento organizaciones:<br>Creación de empleo</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee" colspan="2"><em>range: 1-10</em></td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">7</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">org_microcredito</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">p45.7.Percepción requerimiento organizaciones:<br>Microcrédito</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2"><em>range: 1-10</em></td>
+</tr>
+
+</table>

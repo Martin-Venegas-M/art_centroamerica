@@ -1,0 +1,202 @@
+# 0. Identificación -------------------------------------------------------
+
+#Título: Código de análisis de datos para artículo sobre jóvenes de Centroamérica
+#Institución: Centro de Estudios de Conflicto y Cohesión Social (COES)
+
+#Desactivar notación científica
+options(scipen=999)
+
+# 1. Cargar librerías -----------------------------------------------------
+
+library(pacman)
+pacman::p_load(tidyverse,
+               sjmisc,
+               sjPlot, #Para realizar tablas
+               stats, # Test de Kruskal-Wallis
+               ggplot2, #Para realizar gráficos
+               rstatix, #Revisar normalidad
+               lattice,
+               olsrr,
+               nortest) #test Lilliefors
+   
+# 2. Cargar datos procesados ----------------------------------------------
+
+datos_proc <- readRDS("input/data/datos_proc.rds")
+costa_rica <- readRDS("input/data/costa_rica.rds")
+nicaragua <- readRDS("input/data/nicaragua.rds") 
+el_salvador <- readRDS("input/data/el_salvador.rds") 
+guatemala <- readRDS("input/data/guatemala.rds") 
+honduras <- readRDS("input/data/honduras.rds") 
+
+# 3. Análisis de datos ----------------------------------------------------
+
+# 3. 1. Tabla de distribución de frecuencias ------------------------------
+
+#Crear dataframe 
+
+df1 <- datos_proc %>% #A partir de datos procesados
+    select(pais, distribucion_de_riqueza) %>% #Con las variables de interés
+    na.omit(.) %>% #Omitiendo NA
+    group_by(pais) %>% # Agrupo por país
+    summarise(N = n(), #N por país
+              Media = round(mean(distribucion_de_riqueza), 3), #La media redondeada de la variable dependiente por país
+              DE = round(sd(distribucion_de_riqueza), 3))# La desviación estándar redondeada de la variable dependiente por país  
+
+#Imprimir y exportar la tabla
+sjPlot::tab_df(df1, #A partir del dataframe creado previamente 
+               title = "Tabla 1. Percepción de la justicia de la desigualdad económica", #Título
+               encoding = "Latin-1",
+               file = "output/tables/distribucion_de_frecuencias.doc") #Ubicación en carpeta del proyecto
+
+# 3. 2. Gráfico de distribución de frecuencias ----------------------------
+
+# 3. 1. Gráfico del promedio de la variable dependiente para cada país ----
+
+barras <- df1 %>%
+  ggplot(df1, #Definir valores por graficar
+         mapping = aes(x = pais, #Eje X
+             y = Media, #Eje Y
+             fill = Media)) + #Color de las barras
+  geom_bar(stat = "identity", #Definir el eje Y como valor numérico
+           width = 0.75) + #Definir ancho de las barras
+  labs(title="Gráfico 1.", #Título 
+       x="Países",#Etiqueta eje X
+       y = "Promedio")+ #Etiqueta eje Y
+  theme_classic() 
+
+barras
+
+ggsave(barras, file = "output/tables/barras.pdf", scale=2)
+
+# 3. 2. Gráfico de la frecuencia de respuestas por cada país ----------------
+
+barras2 <- df1 %>%
+  ggplot(df1, #Definir valores por graficar
+         mapping = aes(x = pais, #Eje X
+                       y = N, #Eje Y
+                       fill = N)) + #Color de las barras
+  geom_bar(stat = "identity", #Definir el eje Y como valor numérico
+           width = 0.75) + #Definir ancho de las barras
+  labs(title="Gráfico 1.", #Título 
+       x="Países",#Etiqueta eje X
+       y = "N")+ #Etiqueta eje Y
+  theme_classic() 
+
+barras2
+
+ggsave(barras2, file = "output/tables/barras2.pdf", scale=2)
+
+# 3. 3. Revisar la normalidad ---------------------------------------------
+
+# Test de Shapiro-Wilk ----------------------------------------------------
+
+#La hipótesis nula (H0) que la población está distribuida normalmente.
+#Si el p-valor es menor a alfa (nivel de significancia), entonces la hipótesis
+#nula es rechazada y se concluye que los datos no vienen de una distribución normal).
+
+#En este caso, la hipótesis nula es rechazada, por lo que se concluye que los
+#datos no se distribuyen normalmente. 
+
+norm_por_pais <- datos_proc %>%
+  select(pais, distribucion_de_riqueza) %>% #Con las variables de interés
+  na.omit(.) %>% #Omitiendo NA
+  group_by(pais) %>%
+  rstatix::shapiro_test(distribucion_de_riqueza)
+
+norm <- datos_proc %>%
+  rstatix::shapiro_test(distribucion_de_riqueza)
+
+lattice::histogram(~distribucion_de_riqueza|pais,
+                   data = datos_proc,
+                   layout = c(1,5))
+
+# 3. 4. Comparación de medias ---------------------------------------------
+
+# Test de Kruskal Wallis --------------------------------------------------
+
+kwt <- datos_proc %>%
+  rstatix::kruskal_test(distribucion_de_riqueza~pais)
+
+# 3. 5. Regresión lineal stepwise backwards -------------------------------
+
+# 3. 5. 2. Modelo para Costa Rica -----------------------------------------
+
+intercept_only <- lm(distribucion_de_riqueza ~ 1, data = costa_rica)
+
+all <- lm(distribucion_de_riqueza ~., data = costa_rica)
+
+#Revisar descritivamente los datos
+frq(costa_rica)
+
+#La variable horas_trabajo adopta muchos valores posibles, concentrando en algunoos valores 
+#solo 1 caso. Esto mismo ocurre con la variable personas_casa.
+#La variable seguro_social contiene 53% de NA.
+#La categorías educación técnica completa y posgrado universitario de la variable 
+#nivel_educ tienen 0 casos
+#La variable org_medio_amb tiene valores que concentran 1 caso. Lo mismo ocurre con org_religion.
+
+#Incorporar 1 a 1 las variables al modelo, para excluir aquellas que no funcionan.
+all <- lm(distribucion_de_riqueza ~ sexo +
+                                    edad +
+                                    trabajo_remunerado +
+                                    personas_casa +
+                                    seguro_social +
+                                    nivel_educ +
+                                    dinero_comida +
+                                    dinero_casa +
+                                    dinero_buses +
+                                    victimas_violencia +
+                                    ac_obedecer_autoridad_gob +
+                                    ac_obedecer_padres + 
+                                    ac_destino +
+                                    ac_mano_dura +
+                                    org_ddhh +
+                                    org_medio_amb + 
+                                    org_religion +
+                                    org_dd_sexuales +
+                                    org_prev_drogas +
+                                    org_empleo +
+                                    org_microcredito +
+                                    cr_org_adultos_estudio +
+                                    cr_org_gobs +
+                                    cr_org_iglesias +
+                                    cr_org_pers_ud +
+                                    cr_org_partidos +
+                                    val_org_resuelvan +
+                                    val_org_escuchan +
+                                    val_org_comuniquen +
+                                    val_org_recolecten +
+                                    val_org_consejos +
+                                    val_org_lideres +
+                                    ind_perc_pas +
+                                    ind_perc_fut +
+                                    ind_perc +
+                                    ind_conf_inst +
+                                    ind_aut, data = costa_rica)
+
+
+#Las variable horas_trabajo  no permite estimar el modelo, por ende se excluye. 
+backward <- step(intercept_only, direction = "backward", scope = formula(all))
+backward$anova
+backward$coefficients
+summary(backward)
+#No funciona el modelo, intento con otra fórmula. Error en la consola apunta a NA. 
+step.model <- stepAIC(all, direction = "backward")
+
+# 3. 5. 3. Modelo para Nicaragua ------------------------------------------
+
+
+# 3. 5. 4. Modelo para El Salvador ----------------------------------------
+
+
+# 3. 5. 5. Modelo para Guatemala ------------------------------------------
+
+
+# 3. 5. 6. Modelo para Honduras -------------------------------------------
+
+
+
+
+
+
+

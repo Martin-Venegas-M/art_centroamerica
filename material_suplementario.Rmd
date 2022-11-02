@@ -1,0 +1,206 @@
+---
+title: "Material Suplementario para el artículo 'Evaluación de (in)justicia distributiva en jóvenes de Centroamérica'"
+author: "Martín Venegas"
+date: "2/20/2022"
+output: pdf_document
+geometry: legalpaper
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE
+)
+```
+
+```{r}
+# Cargar librerías
+
+library(pacman)
+pacman::p_load(tidyverse,
+               table1,
+               jtools,
+               knitr,
+               kableExtra,
+               texreg)
+```
+
+
+```{r}
+
+# Cargar modelos
+bgen <- readRDS("output/bgn.rds")
+bcr <- readRDS("output/bcr.rds")
+bn <- readRDS("output/bn.rds")
+bg <- readRDS("output/bg.rds")
+bh <- readRDS("output/bh.rds")
+bes <- readRDS("output/bes.rds")
+
+# Cargar modelos de validación
+bgen_val2 <- readRDS("output/bgn_val2.rds")
+bcr_val2 <- readRDS("output/bcr_val2.rds")
+bn_val2 <- readRDS("output/bn_val2.rds")
+bg_val2 <- readRDS("output/bg_val2.rds")
+bh_val2 <- readRDS("output/bh_val2.rds")
+bes_val2 <- readRDS("output/bes_val2.rds")
+
+# Cargar dataframes
+general_reg <- readRDS("output/general_reg.rds")
+costa_rica_reg <- readRDS("output/costa_rica_reg.rds")
+nicaragua_reg <- readRDS("output/nicaragua_reg.rds")
+guatemala_reg <- readRDS("output/guatemala_reg.rds")
+honduras_reg <- readRDS("output/honduras_reg.rds")
+el_salvador_reg <- readRDS("output/el_salvador_reg.rds")
+
+# Cargar dataframes de validación
+general_reg_val2 <- readRDS("output/general_reg_val2.rds")
+costa_rica_reg_val2 <- readRDS("output/costa_rica_reg_val2.rds")
+nicaragua_reg_val2 <- readRDS("output/nicaragua_reg_val2.rds")
+guatemala_reg_val2 <- readRDS("output/guatemala_reg_val2.rds")
+honduras_reg_val2 <- readRDS("output/honduras_reg_val2.rds")
+el_salvador_reg_val2 <- readRDS("output/el_salvador_reg_val2.rds")
+
+```
+
+
+### Tabla 1. Bivariados de evaluaciones de justicia por frecuencia con la que se queda sin dinero para pagar la casa en Costa Rica
+
+```{r}
+table1::table1(~distribucion_de_riqueza | dinero_casa, data = costa_rica_reg) # OJO
+```
+
+\newpage 
+
+
+### Tabla 2. Bivariados de evaluaciones de justicia por frecuencia con la que se queda sin dinero para pagar la casa en Nicaragua
+
+
+```{r}
+table1::table1(~distribucion_de_riqueza | dinero_casa, data = nicaragua_reg) # OJO
+```
+
+\newpage 
+
+### Tabla 3. Bivariados de evaluaciones de justicia por frecuencia con la que se queda sin dinero para pagar la comida en Guatemala
+
+
+
+```{r}
+table1::table1(~distribucion_de_riqueza | dinero_comida, data = guatemala_reg) # OJO
+```
+
+\newpage 
+
+## Tabla 4. Tabla de regresión lineal por _eliminación hacia atrás_ de las evaluaciones de justicia distributiva en Centroamerica
+
+```{r}
+export_summs(bgen, bcr, bn, bes, bg, bh,
+           model.names = c("General",
+                           "Costa Rica",
+                           "Nicaragua",
+                           "El Salvador",
+                           "Guatemala",
+                           "Honduras"),
+           coefs = c("Pais|Nicaragua" = "paisNicaragua",
+                     "Pais|Salvador" = "paisSalvador",
+                     "Pais|Guatemala" = "paisGuatemala",
+                     "Pais|Honduras" = "paisHonduras",
+                     "Edad" = "edad",
+                     "Trabajo remmunerado|Si" = "trabajo_remuneradoSí",
+                     "Número de personas en la casa" = "personas_casa",
+                     "Dinero Comida|Muy pocas veces" = "dinero_comidaMuy pocas veces",
+                     "Dinero Comida|Pocas veces" = "dinero_comidaPocas veces",
+                     "Dinero Comida|Algunas veces" = "dinero_comidaAlgunas veces",
+                     "Dinero Comida|Con frecuencia" = "dinero_comidaCon frecuencia",
+                     "Dinero Comida|Con mucha frecuencia" = "dinero_comidaCon mucha frecuencia",
+                     "Dinero Casa|Muy pocas veces" = "dinero_casaMuy pocas veces",
+                     "Dinero Casa|Pocas veces" = "dinero_casaPocas veces",
+                     "Dinero Casa|Algunas veces" = "dinero_casaAlgunas veces",
+                     "Dinero Casa|Con frecuencia" = "dinero_casaCon frecuencia",
+                     "Dinero Casa|Con mucha frecuencia" = "dinero_casaCon mucha frecuencia",
+                     "Dinero Buses|Muy pocas veces" = "dinero_busesMuy pocas veces",
+                     "Dinero Buses|Pocas veces" = "dinero_busesPocas veces",
+                     "Dinero Buses|Algunas veces" = "dinero_busesAlgunas veces",
+                     "Dinero Buses|Con frecuencia" = "dinero_busesCon frecuencia",
+                     "Dinero Buses|Con mucha frecuencia" = "dinero_busesCon mucha frecuencia",
+                     "Victimas Violencia|Poco miedo" = "victimas_violenciaPoco miedo",
+                     "Victimas Violencia|Miedo" = "victimas_violenciaMiedo",
+                     "Victimas Violencia|Mucho miedo" = "victimas_violenciaMucho miedo",
+                     "Se necesitan Org. Derechos Sexuales" = "org_dd_sexuales",
+                     "Se necesitan Org. DDHH" = "org_ddhh",
+                     "Se necesitan Org. Religión" = "org_religion",
+                     "Se necesitan Org. Prevención Drogas" = "org_prev_drogas",
+                     "Se necesitan Org. Empleo" = "org_empleo",
+                     "Orgs. se crean por adultos con estudios" = "cr_org_adultos_estudio",
+                     "Orgs. se crean por personas como ud." = "cr_org_pers_ud",
+                     "Orgs. se crean por el gobierno" = "cr_org_gobs",
+                     "Orgs se crean por las iglesas" = "cr_org_iglesias",
+                     "Se valora que dirigentes recoleten fondos" = "val_org_recolecten",
+                     "Se valora que dirigentes sean lideres democraticos" = "val_org_lideres",
+                     "Se valora que dirigentes escuhen" = "val_org_escuchan",
+                     "Se valora que dirigentes resuelvan problemas" = "val_org_resuelvan",
+                     "Indice percepción situación actual" = "ind_perc",
+                     "Indice percepción pasado" = "ind_perc_pas",
+                     "Indice confianza instituciones" = "ind_conf_inst",
+                     "Indice autoritarismo" = "ind_aut"),
+           scale = TRUE
+           )
+```
+
+
+\newpage 
+
+
+## Tabla 5. Tabla de regresión lineal por _eliminación hacia atrás_ de las evaluaciones de justicia distributiva en Centroamerica (para validación)
+
+```{r results='asis'}
+tab_5 <- export_summs(bgen_val2, bcr_val2, bn_val2, bes_val2, bg_val2, bh_val2,
+             model.names = c("General",
+                             "Costa Rica",
+                             "Nicaragua",
+                             "El Salvador",
+                             "Guatemala",
+                             "Honduras"),
+             coefs = c("Pais|Nicaragua" = "paisNicaragua",
+                       "Pais|Salvador" = "paisSalvador",
+                       "Pais|Guatemala" = "paisGuatemala",
+                       "Pais|Honduras" = "paisHonduras",
+                       "Edad" = "edad",
+                       "Sexo|Hombre" = "sexoHombre",
+                       "Trabajo remmunerado|Si" = "trabajo_remuneradoSí",
+                       "Número de personas en la casa" = "personas_casa",
+                       "Dinero Comida|Ocurrido aunque sea una vez" = "dinero_comidaOcurrido aunque sea una vez",
+                       "Dinero Casa|Ocurrido aunque sea una vez" = "dinero_casaOcurrido aunque sea una vez",
+                       "Dinero Buses|Ocurrido aunque sea una vez" = "dinero_busesOcurrido aunque sea una vez",
+                       "Victimas Violencia|Poco miedo" = "victimas_violenciaPoco miedo",
+                       "Victimas Violencia|Miedo" = "victimas_violenciaMiedo",
+                       "Victimas Violencia|Mucho miedo" = "victimas_violenciaMucho miedo",
+                       "Se necesitan Org. Derechos Sexuales" = "org_dd_sexuales",
+                       "Se necesitan Org. DDHH" = "org_ddhh",
+                       "Se necesitan Org. Religión" = "org_religion",
+                       "Se necesitan Org. Prevención Drogas" = "org_prev_drogas",
+                       "Se necesitan Org. Empleo" = "org_empleo",
+                       "Orgs. se crean por adultos con estudios" = "cr_org_adultos_estudio",
+                       "Orgs. se crean por personas como ud." = "cr_org_pers_ud",
+                       "Orgs. se crean por el gobierno" = "cr_org_gobs",
+                       "Orgs se crean por las iglesas" = "cr_org_iglesias",
+                       "Se valora que dirigentes recoleten fondos" = "val_org_recolecten",
+                       "Se valora que dirigentes sean lideres democraticos" = "val_org_lideres",
+                       "Se valora que dirigentes escuhen" = "val_org_escuchan",
+                       "Se valora que dirigentes resuelvan problemas" = "val_org_resuelvan",
+                       "Indice percepción situación actual" = "ind_perc",
+                       "Indice percepción pasado" = "ind_perc_pas",
+                       "Indice confianza instituciones" = "ind_conf_inst",
+                       "Indice autoritarismo" = "ind_aut"),
+             scale = TRUE
+)
+
+knitreg(list(bgen,
+        bcr,
+        bh,
+        bn,
+        bes,
+        bg))
+```
+
+

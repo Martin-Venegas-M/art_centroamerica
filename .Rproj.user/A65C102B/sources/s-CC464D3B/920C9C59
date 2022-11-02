@@ -1,0 +1,28 @@
+{
+    "id": "920C9C59",
+    "path": "~/GitHub/centroam/proc/analisis.R",
+    "project_path": "proc/analisis.R",
+    "type": "r_source",
+    "hash": "1253823140",
+    "contents": "",
+    "dirty": false,
+    "created": 1637329429362.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "tempName": "Untitled1",
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "187,0",
+        "scrollLine": "174",
+        "ignored_words": "significancia\n"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1638286306,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1638286306,
+    "read_only": false,
+    "read_only_alternatives": []
+}

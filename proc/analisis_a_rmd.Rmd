@@ -1,0 +1,705 @@
+---
+title: "Código de análisis de datos para artículo sobre jóvenes de Centroamerica - Base A"
+author: "Martín Venegas y Emilia Barrientos"
+date: "12/11/2021"
+output: html_document
+---
+
+En este documento se presenta el análisis para el artículo "Evaluación de (in)justicia distributiva en jóvenes de Centroamérica" a cargo del investigador principal Juan Diego García. Específicamente, en este documento de utiliza la Base de Datos A, la cual contiene los datos que se reportarán en el artículo final.
+
+El documento se divide en tres secciones, En la primera sección se cargan las librerías para ejecutar el código. En la segunda sección se cargan los datos a analizar. En la tercera sección se procede al análisis de datos. En la sección de análisis de datos se elaboran tablas descriptivas de los datos, tanto de la muestra total como por cada país. Enseguida, se procede a probar la normalidad de la muestra. En último lugar, se elaboran modelos de regresión _backward stepwise_ tanto a nivel general como por cada país.
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# 0. Identificación -------------------------------------------------------
+
+#Título: Código de análisis de datos para artículo sobre jóvenes de Centroamérica
+#Institución: Centro de Estudios de Conflicto y Cohesión Social (COES)
+
+#Desactivar notación científica
+options(scipen=999)
+```
+
+```{r}
+# 1. Cargar librerías -----------------------------------------------------
+
+library(pacman)
+pacman::p_load(tidyverse,
+               sjmisc,
+               sjPlot, #Para realizar tablas
+               stats, # Test de Kruskal-Wallis
+               ggplot2, #Para realizar gráficos
+               rstatix, #Revisar normalidad
+               lattice,
+               olsrr,
+               nortest, #test Lilliefors
+               MASS,
+               summarytools,
+               VIM,
+               table1,
+               car,
+               jtools,
+               ggstance,
+               broom.mixed,
+               huxtable,
+               officer,
+               flextable,
+               FSA,
+               openxlsx)
+
+```  
+
+```{r}
+# 2. Cargar datos procesados ----------------------------------------------
+
+datos_proc_a <- readRDS("../input/data/datos_proc_a.rds")
+costa_rica_a <- readRDS("../input/data/costa_rica_a.rds")
+nicaragua_a <- readRDS("../input/data/nicaragua_a.rds") 
+el_salvador_a <- readRDS("../input/data/el_salvador_a.rds") 
+guatemala_a <- readRDS("../input/data/guatemala_a.rds") 
+honduras_a <- readRDS("../input/data/honduras_a.rds") 
+
+```
+
+```{r}
+# 3. Análisis de datos ----------------------------------------------------
+```
+
+```{r, results='asis'}
+
+# 3.0 Tabla general, tabla general por países y análisis NA-------------------------------------------------------
+
+# General
+df_gen2_a<- dfSummary(datos_proc_a,
+               plain.ascii = FALSE,
+               style = "grid",
+               tmp.img.dir = "/tmp",
+               graph.magnif = TRUE,
+               headings = F,  # encabezado
+               varnumbers = F, # num variable
+               labels.col = T, # etiquetas
+               na.col = T,    # missing
+               graph.col = T, # plot
+               valid.col = T, # n valido
+               col.widths = c(10,1000,10,10,10,10,10)
+               )
+# df_gen2_a$Variable <- NULL # delete variable column
+summarytools::view(df_gen2_a, file = "../output/tables/df_gen2_a.html") # Ver tabla en un archivo HTML
+
+
+# Costa rica
+
+df_costa_rica<- dfSummary(costa_rica_a,
+               plain.ascii = FALSE,
+               style = "grid",
+               tmp.img.dir = "/tmp",
+               graph.magnif = TRUE,
+               headings = F,  # encabezado
+               varnumbers = F, # num variable
+               labels.col = T, # etiquetas
+               na.col = T,    # missing
+               graph.col = T, # plot
+               valid.col = T, # n valido
+               col.widths = c(1000,10,10,10,10,10)
+               )
+df_costa_rica$Variable <- NULL # delete variable column
+summarytools::view(df_costa_rica, file = "../output/tables/df_costa_rica_a.html") # Ver tabla en un archivo HTML
+
+# El Salvador
+
+df_el_salvador<- dfSummary(el_salvador_a,
+               plain.ascii = FALSE,
+               style = "grid",
+               tmp.img.dir = "/tmp",
+               graph.magnif = TRUE,
+               headings = F,  # encabezado
+               varnumbers = F, # num variable
+               labels.col = T, # etiquetas
+               na.col = T,    # missing
+               graph.col = T, # plot
+               valid.col = T, # n valido
+               col.widths = c(1000,10,10,10,10,10)
+               )
+df_el_salvador$Variable <- NULL # delete variable column
+summarytools::view(df_el_salvador, file = "../output/tables/df_el_salvador_a.html") # Ver tabla en un archivo HTML
+
+# Guatemala
+
+df_guatemala<- dfSummary(guatemala_a,
+               plain.ascii = FALSE,
+               style = "grid",
+               tmp.img.dir = "/tmp",
+               graph.magnif = TRUE,
+               headings = F,  # encabezado
+               varnumbers = F, # num variable
+               labels.col = T, # etiquetas
+               na.col = T,    # missing
+               graph.col = T, # plot
+               valid.col = T, # n valido
+               col.widths = c(1000,10,10,10,10,10)
+               )
+df_guatemala$Variable <- NULL # delete variable column
+summarytools::view(df_guatemala, file = "../output/tables/df_guatemala_a.html") # Ver tabla en un archivo HTML
+
+# Honduras
+
+df_honduras<- dfSummary(honduras_a,
+               plain.ascii = FALSE,
+               style = "grid",
+               tmp.img.dir = "/tmp",
+               graph.magnif = TRUE,
+               headings = F,  # encabezado
+               varnumbers = F, # num variable
+               labels.col = T, # etiquetas
+               na.col = T,    # missing
+               graph.col = T, # plot
+               valid.col = T, # n valido
+               col.widths = c(1000,10,10,10,10,10)
+               )
+df_honduras$Variable <- NULL # delete variable column
+summarytools::view(df_honduras, file = "../output/tables/df_honduras_a.html") # Ver tabla en un archivo HTML
+
+# Nicaragua
+
+df_nicaragua<- dfSummary(nicaragua_a,
+               plain.ascii = FALSE,
+               style = "grid",
+               tmp.img.dir = "/tmp",
+               graph.magnif = TRUE,
+               headings = F,  # encabezado
+               varnumbers = F, # num variable
+               labels.col = T, # etiquetas
+               na.col = T,    # missing
+               graph.col = T, # plot
+               valid.col = T, # n valido
+               col.widths = c(1000,10,10,10,10,10)
+               )
+df_nicaragua$Variable <- NULL # delete variable column
+summarytools::view(df_nicaragua, file = "../output/tables/df_nicaragua_a.html") # Ver tabla en un archivo HTML
+
+```
+
+```{r}
+# 3. 1. Tabla de distribución de frecuencias ------------------------------
+
+#Crear dataframe 
+
+df1 <- datos_proc_a %>% #A partir de datos procesados
+    dplyr::select(pais, distribucion_de_riqueza) %>% #Con las variables de interés
+    na.omit(.) %>% #Omitiendo NA
+    group_by(pais) %>% # Agrupo por país
+    summarise(N = n(), #N por país
+              Media = round(mean(distribucion_de_riqueza), 3), #La media redondeada de la variable dependiente por país
+              DE = round(sd(distribucion_de_riqueza), 3))# La desviación estándar redondeada de la variable dependiente por país
+
+# Descending order
+
+df1 <- df1[order(-df1$Media),]
+
+# Mostrar tabla
+sjPlot::tab_df(df1, #A partir del dataframe creado previamente 
+               title = "Tabla 1. Evaluación de justicia en la distribución de riquezas", #Título
+               encoding = "Latin-1",
+               footnote = "Se presenta el tamaño de muestra (N), la media (Media) y la desviación estándar (DE) de la variable dependiente para cada uno de los cinco países de Centroamerica. Una mayor media implica que se evalúa más justicia de parte de los encuestados")
+
+```
+
+Como se puede apreciar en la Tabla 1, el país que presenta una mayor media respecto a las evaluaciones de justicia de los jovenes es Nicaragua (2.34). Es decir, comparando con otros paises de Centroamerica de la muestra, en Nicaragua es donde se evalúa mayor justicia de parte de los jovenes de colonias marginales. En orden decreciente le sigue Costa Rica (2.21), Honduras (1.98), Guatemala (1.71) y por último El Salvador (1.52), siendo el país donde se evalúa menos justicia.
+
+```{r}
+# 3. 2. Gráfico de distribución de frecuencias ----------------------------
+
+# 3. 2. 1. Gráfico del promedio de la variable dependiente para cada país ----
+
+barras <- df1 %>%
+  ggplot(df1, #Definir valores por graficar
+         mapping = aes(x = pais, #Eje X
+             y = Media, #Eje Y
+             fill = Media)) + #Color de las barras
+  geom_bar(stat = "identity", #Definir el eje Y como valor numérico
+           width = 0.75) + #Definir ancho de las barras
+  labs(title="Gráfico 1.", #Título 
+       x="Países",#Etiqueta eje X
+       y = "Promedio")+ #Etiqueta eje Y
+  theme_classic() 
+
+barras
+
+# ggsave(barras, file = "output/tables/barras.pdf", scale=2)
+
+# 3. 2. 2. Gráfico de la frecuencia de respuestas por cada país ----------------
+
+barras2 <- df1 %>%
+  ggplot(df1, #Definir valores por graficar
+         mapping = aes(x = pais, #Eje X
+                       y = N, #Eje Y
+                       fill = N)) + #Color de las barras
+  geom_bar(stat = "identity", #Definir el eje Y como valor numérico
+           width = 0.75) + #Definir ancho de las barras
+  labs(title="Gráfico 1.", #Título 
+       x="Países",#Etiqueta eje X
+       y = "N")+ #Etiqueta eje Y
+  theme_classic() 
+
+barras2
+
+# ggsave(barras2, file = "output/tables/barras2.pdf", scale=2)
+
+```
+
+```{r}
+# 3. 3. Revisar la normalidad ---------------------------------------------
+
+# Test de Shapiro-Wilk ----------------------------------------------------
+
+#La hipótesis nula (H0) que la población está distribuida normalmente.
+#Si el p-valor es menor a alfa (nivel de significancia), entonces la hipótesis
+#nula es rechazada y se concluye que los datos no vienen de una distribución normal).
+
+#En este caso, la hipótesis nula es rechazada, por lo que se concluye que los
+#datos no se distribuyen normalmente. 
+
+norm_por_pais <- datos_proc_a %>%
+  dplyr::select(pais, distribucion_de_riqueza) %>% #Con las variables de interés
+  na.omit(.) %>% #Omitiendo NA
+  group_by(pais) %>%
+  rstatix::shapiro_test(distribucion_de_riqueza)
+
+norm <- datos_proc_a %>%
+  rstatix::shapiro_test(distribucion_de_riqueza)
+
+norm_por_pais
+
+norm
+
+lattice::histogram(~distribucion_de_riqueza|pais,
+                   data = datos_proc_a,
+                   layout = c(1,5))
+
+```
+
+Se aplica el test de Shapiro Wilk para determinar si los datos provienen de una distribución normal. Se aplica el test a nivel de toda la muestra así como también por país. Los resultados muestran que los datos, tanto a nivel general como por país, no se distribuyen normalmente.
+
+```{r}
+# 3. 4. Comparación de medias ---------------------------------------------
+
+car::leveneTest(distribucion_de_riqueza ~ pais, data = datos_proc_a, center = "median")
+
+# Test de Kruskal Wallis --------------------------------------------------
+
+ datos_proc_a %>%
+  rstatix::kruskal_test(distribucion_de_riqueza~pais)
+
+# Comparaciones Post - Hoc: Dunn 1964 test -------------------------------------------------
+
+comp_post <- dunnTest(distribucion_de_riqueza ~ pais,
+              data=datos_proc_a,
+              method="bh")
+
+comp_post_data <- comp_post$res
+
+comp_post_data$P.unadj <- ifelse(comp_post_data$P.unadj < 0.001, "<.001",
+                                 ifelse(comp_post_data$P.unadj < 0.01, "<.01",
+                                        ifelse(comp_post_data$P.unadj < 0.05, "<.05", round(comp_post_data$P.unadj, digits = 2))
+                                        )
+                                 )
+
+comp_post_data$P.adj <- ifelse(comp_post_data$P.adj < 0.001, "<.001",
+                                 ifelse(comp_post_data$P.adj < 0.01, "<.01",
+                                        ifelse(comp_post_data$P.adj < 0.05, "<.05", round(comp_post_data$P.adj, digits = 2))
+                                        )
+                                 )
+
+comp_post_data <- comp_post_data %>% rename("Comparación" = Comparison, "Valor p no ajustado" = P.unadj, "Valor p ajustado" = P.adj)
+
+sjPlot::tab_df(comp_post_data, #A partir del dataframe creado previamente 
+               title = "Tabla 2. Comparaciones Post Hoc a través de prueba de Dunn con corrección de Benjamini-Hochberg.", #Título
+               encoding = "Latin-1",
+               footnote = "")
+
+write.xlsx(comp_post_data, file = "../output/tables/comp_post_data.xlsx")
+
+```
+
+Considerando que los datos no se distribuyen normalmente, se aplica el test de Kruskal Walis para determinar si existen diferencias significativas en las evaluaciones de justicia distributiva entre países. Los resultados de la prueba estadística dan cuenta de que efectivamente existen diferencias significativas entre dos o más grupos. Al aplicarse las comparaciones Post Hoc, se da cuenta de que existen diferencias estadísticamente significativas al 99,9% o al 99 de confianza entre casi todos los países, las únicas excepciones son: Costa Rica - Nicaragua y Guatemala - El Salvador y Honduras.
+
+```{r}
+# 3. 5. Regresión lineal stepwise backwards -------------------------------
+
+# 3. 5. 1. Modelo general (toda la muestra) -----------------------------------------------
+
+general_reg <- na.omit(datos_proc_a) # hacer una base sin NA para las regresiones
+
+intercept_only_general <- lm(distribucion_de_riqueza ~ 1, data = general_reg) # crear base solo con interceptio
+
+all_general<- lm(distribucion_de_riqueza ~., data = general_reg) # crear modelo de regresión con todos los predictores para hacer backward
+
+# NOTA: Quitando horas_trabajo el modelo funciona. Queda con un n de 105. Quitando seguro_social queda con un n de 226. OJO: esas variables las excluí en el script de procesamiento, pero aquí igual apliqué un na-omit para las otras variables que contenían NA.
+
+stargazer::stargazer(all_general, type = "text") # mostrar tabla para modelo con todos los predictores
+
+
+# Elaborar modelos por backard step
+backward_general<- step(all_general, direction = "backward") # crear moidelo
+bgen <- summary(backward_general) # Esto muestra el modelo con mejor ajuste
+
+```
+
+```{r}
+
+# 3. 5. 2. Modelo para Costa Rica -----------------------------------------
+
+costa_rica_reg <- na.omit(costa_rica_a) # hacer una base sin NA para las regresiones
+
+intercept_only_costa_rica <- lm(distribucion_de_riqueza ~ 1, data = costa_rica_reg) # crear base solo con interceptio
+
+all_costa_rica <- lm(distribucion_de_riqueza ~., data = costa_rica_reg) # crear modelo de regresión con todos los predictores para hacer backward
+
+# NOTA: Quitando horas_trabajo el modelo funciona. Queda con un n de 105. Quitando seguro_social queda con un n de 226. OJO: esas variables las excluí en el script de procesamiento, pero aquí igual apliqué un na-omit para las otras variables que contenían NA.
+
+stargazer::stargazer(all_costa_rica, type = "text") # mostrar tabla para modelo con todos los predictores
+
+
+# Elaborar modelos por backard step
+backward_costa_rica <- step(all_costa_rica, direction = "backward") # crear moidelo
+bcr <- summary(backward_costa_rica) # Esto muestra el modelo con mejor ajuste
+
+```
+
+
+```{r}
+# 3. 5. 3. Modelo para Nicaragua ------------------------------------------
+
+nicaragua_reg <- na.omit(nicaragua_a) # hacer una base sin NA para las regresiones
+
+intercept_only_nicaragua <- lm(distribucion_de_riqueza ~ 1, data = nicaragua_reg) # hacer una base con solo el intercepto como prueba
+
+all_nicaragua <- lm(distribucion_de_riqueza ~., data = nicaragua_reg) # crear modelo de regresión con todos los predicores para hacer backward
+
+stargazer::stargazer(all_nicaragua, type = "text") # ver modelo de regresión con todos los predictores
+
+# Calcular modelos por backward step
+backward_nicaragua <- step(all_nicaragua, direction = "backward") # crear modelo backward
+bn <- summary(backward_nicaragua) # Esto muestra el modelo con mejor ajuste
+```
+
+```{r}
+# 3. 5. 4. Modelo para El Salvador ----------------------------------------
+
+el_salvador_reg <- na.omit(el_salvador_a) # hacer una base sin NA para las regresiones
+
+intercept_only_el_salvador <- lm(distribucion_de_riqueza ~ 1, data = el_salvador_reg) # hacer una base con solo el intercepto como prueba
+
+all_el_salvador <- lm(distribucion_de_riqueza ~., data = el_salvador_reg) # crear modelo de regresión con todos los predictores para hacer backward
+
+stargazer::stargazer(all_el_salvador, type = "text") # ver modelo de regresión con todos los predictores
+
+# Calcular modelos por backward step
+backward_el_salvador <- step(all_el_salvador, direction = "backward") # crear modelo backward
+bes <- summary(backward_el_salvador) # Esto muestra el modelo con mejor ajuste
+```
+
+```{r}
+# 3. 5. 5. Modelo para Guatemala ------------------------------------------
+guatemala_reg <- na.omit(guatemala_a) # hacer una base sin NA para las regresiones
+
+intercept_only_guatemala <- lm(distribucion_de_riqueza ~ 1, data = guatemala_reg) # hacer una base con solo el intercepto como prueba
+
+all_guatemala <- lm(distribucion_de_riqueza ~., data = guatemala_reg) # crear modelo de regresión con todos los predicores para hacer backward
+
+stargazer::stargazer(all_guatemala, type = "text") # ver modelo de regresión con todos los predictores
+
+# Calcular modelos por backward step
+backward_guatemala <- step(all_guatemala, direction = "backward") # crear modelo backward
+bg <- summary(backward_guatemala) # Esto muestra el modelo con mejor ajuste
+
+```
+
+```{r}
+# 3. 5. 6. Modelo para Honduras -------------------------------------------
+
+honduras_reg <- na.omit(honduras_a) # hacer una base sin NA para las regresiones
+
+intercept_only_honduras <- lm(distribucion_de_riqueza ~ 1, data = honduras_reg) # hacer una base con solo el intercepto como prueba
+
+all_honduras <- lm(distribucion_de_riqueza ~., data = honduras_reg) # crear modelo de regresión con todos los predicores para hacer backward
+
+stargazer::stargazer(all_honduras, type = "text") # ver modelo de regresión con todos los predictores
+
+# Calcular modelos por backward step
+backward_honduras <- step(all_honduras, direction = "backward") # crear modelo backward
+bh <- summary(backward_honduras) # Esto muestra el modelo con mejor ajuste
+```
+
+```{r}
+# Guardar modelos y dataframes para material suplementario
+
+saveRDS(bgen, "../output/bgn.rds")
+saveRDS(bcr, "../output/bcr.rds")
+saveRDS(bn, "../output/bn.rds")
+saveRDS(bes, "../output/bes.rds")
+saveRDS(bg, "../output/bg.rds")
+saveRDS(bh, "../output/bh.rds")
+
+saveRDS(general_reg, "../output/general_reg.rds")
+saveRDS(costa_rica_reg, "../output/costa_rica_reg.rds")
+saveRDS(nicaragua_reg, "../output/nicaragua_reg.rds")
+saveRDS(guatemala_reg, "../output/guatemala_reg.rds")
+saveRDS(honduras_reg, "../output/honduras_reg.rds")
+saveRDS(el_salvador_reg, "../output/el_salvador_reg.rds")
+
+
+
+```
+
+
+```{r}
+
+plot_summs(bgen, bcr, bn, bes, bg, bh,
+           model.names = c("General",
+                           "Costa Rica",
+                           "Nicaragua",
+                           "El Salvador",
+                           "Guatemala",
+                           "Honduras"),
+           omit.coefs = c("trabajo_remuneradoSí",
+                          "dinero_comidaPocas veces",
+                          "dinero_casaMuy pocas veces",
+                          "dinero_casaPocas veces",
+                          "dinero_casaAlgunas veces",
+                          "dinero_casaCon frecuencia",
+                          "dinero_busesMuy pocas veces",
+                          "dinero_busesPocas veces",
+                          "dinero_busesAlgunas veces",
+                          "dinero_busesCon frecuencia",
+                          "dinero_busesCon mucha frecuencia",
+                          "victimas_violenciaPoco miedo",
+                          "val_org_lideres",
+                          "val_org_resuelvan",
+                          "ind_aut"),
+           
+           coefs = c("Pais|Nicaragua" = "paisNicaragua",
+                     "Pais|Salvador" = "paisSalvador",
+                     "Pais|Guatemala" = "paisGuatemala",
+                     "Pais|Honduras" = "paisHonduras",
+                     "Edad" = "edad",
+                     # "Trabajo remmunerado|Si" = "trabajo_remuneradoSí",
+                     "Número de personas en la casa" = "personas_casa",
+                     "Dinero Comida|Muy pocas veces" = "dinero_comidaMuy pocas veces",
+                     # "Dinero Comida|Pocas veces" = "dinero_comidaPocas veces",
+                     "Dinero Comida|Algunas veces" = "dinero_comidaAlgunas veces",
+                     "Dinero Comida|Con frecuencia" = "dinero_comidaCon frecuencia",
+                     "Dinero Comida|Con mucha frecuencia" = "dinero_comidaCon mucha frecuencia",
+                     # "Dinero Casa|Muy pocas veces" = "dinero_casaMuy pocas veces",
+                     # "Dinero Casa|Pocas veces" = "dinero_casaPocas veces",
+                     # "Dinero Casa|Algunas veces" = "dinero_casaAlgunas veces",
+                     # "Dinero Casa|Con frecuencia" = "dinero_casaCon frecuencia",
+                     "Dinero Casa|Con mucha frecuencia" = "dinero_casaCon mucha frecuencia",
+                     # "Dinero Buses|Muy pocas veces" = "dinero_busesMuy pocas veces",
+                     # "Dinero Buses|Pocas veces" = "dinero_busesPocas veces",
+                     # "Dinero Buses|Algunas veces" = "dinero_busesAlgunas veces",
+                     # "Dinero Buses|Con frecuencia" = "dinero_busesCon frecuencia",
+                     # "Dinero Buses|Con mucha frecuencia" = "dinero_busesCon mucha frecuencia",
+                     # "Victimas Violencia|Poco miedo" = "victimas_violenciaPoco miedo",
+                     "Victimas Violencia|Miedo" = "victimas_violenciaMiedo",
+                     "Victimas Violencia|Mucho miedo" = "victimas_violenciaMucho miedo",
+                     "Se necesitan Org. Derechos Sexuales" = "org_dd_sexuales",
+                     "Se necesitan Org. DDHH" = "org_ddhh",
+                     "Se necesitan Org. Religión" = "org_religion",
+                     "Se necesitan Org. Prevención Drogas" = "org_prev_drogas",
+                     "Se necesitan Org. Empleo" = "org_empleo",
+                     "Orgs. se crean por adultos con estudios" = "cr_org_adultos_estudio",
+                     "Orgs. se crean por personas como ud." = "cr_org_pers_ud",
+                     "Orgs. se crean por el gobierno" = "cr_org_gobs",
+                     "Orgs se crean por las iglesas" = "cr_org_iglesias",
+                     "Se valora que dirigentes recolecten fondos" = "val_org_recolecten",
+                     # "Se valora que dirigentes sean lideres democraticos" = "val_org_lideres",
+                     "Se valora que dirigentes escuchen" = "val_org_escuchan",
+                     # "Se valora que dirigentes resuelvan problemas" = "val_org_resuelvan",
+                     "Indice percepción situación actual" = "ind_perc",
+                     "Indice percepción pasado" = "ind_perc_pas",
+                     "Indice confianza instituciones" = "ind_conf_inst"),
+                     # "Indice autoritarismo" = "ind_aut"),
+           scale = TRUE)
+
+```
+
+
+
+```{r}
+
+plot_summs(bgen, bcr, bn, bes, bg, bh,
+           model.names = c("General",
+                           "Costa Rica",
+                           "Nicaragua",
+                           "El Salvador",
+                           "Guatemala",
+                           "Honduras"),
+          
+           coefs = c(##"Pais|Nicaragua" = "paisNicaragua",
+                     ##"Pais|Salvador" = "paisSalvador",
+                     ##"Pais|Guatemala" = "paisGuatemala",
+                     ##"Pais|Honduras" = "paisHonduras",
+                     ##"Edad" = "edad",
+                     # "Trabajo remmunerado|Si" = "trabajo_remuneradoSí",
+                     ##"Número de personas en la casa" = "personas_casa",
+                     "Dinero Comida|Muy pocas veces" = "dinero_comidaMuy pocas veces",
+                     # "Dinero Comida|Pocas veces" = "dinero_comidaPocas veces",
+                     "Dinero Comida|Algunas veces" = "dinero_comidaAlgunas veces",
+                     "Dinero Comida|Con frecuencia" = "dinero_comidaCon frecuencia",
+                     "Dinero Comida|Con mucha frecuencia" = "dinero_comidaCon mucha frecuencia",
+                     # "Dinero Casa|Muy pocas veces" = "dinero_casaMuy pocas veces",
+                     # "Dinero Casa|Pocas veces" = "dinero_casaPocas veces",
+                     # "Dinero Casa|Algunas veces" = "dinero_casaAlgunas veces",
+                     # "Dinero Casa|Con frecuencia" = "dinero_casaCon frecuencia",
+                     "Dinero Casa|Con mucha frecuencia" = "dinero_casaCon mucha frecuencia",
+                     # "Dinero Buses|Muy pocas veces" = "dinero_busesMuy pocas veces",
+                     # "Dinero Buses|Pocas veces" = "dinero_busesPocas veces",
+                     # "Dinero Buses|Algunas veces" = "dinero_busesAlgunas veces",
+                     # "Dinero Buses|Con frecuencia" = "dinero_busesCon frecuencia",
+                     # "Dinero Buses|Con mucha frecuencia" = "dinero_busesCon mucha frecuencia",
+                     # "Victimas Violencia|Poco miedo" = "victimas_violenciaPoco miedo",
+                     ##"Victimas Violencia|Miedo" = "victimas_violenciaMiedo",
+                     ##"Victimas Violencia|Mucho miedo" = "victimas_violenciaMucho miedo",
+                     ##"Se necesitan Org. Derechos Sexuales" = "org_dd_sexuales",
+                     "Se necesitan Org. DDHH" = "org_ddhh",
+                     "Se necesitan Org. Religión" = "org_religion",
+                     "Se necesitan Org. Prevención Drogas" = "org_prev_drogas",
+                     ##"Se necesitan Org. Empleo" = "org_empleo",
+                     ##"Orgs. se crean por adultos con estudios" = "cr_org_adultos_estudio",
+                     ##"Orgs. se crean por personas como ud." = "cr_org_pers_ud",
+                     ##"Orgs. se crean por el gobierno" = "cr_org_gobs",
+                     ##"Orgs se crean por las iglesas" = "cr_org_iglesias",
+                     "Se valora que dirigentes recolecten fondos" = "val_org_recolecten",
+                     # "Se valora que dirigentes sean lideres democraticos" = "val_org_lideres",
+                     "Se valora que dirigentes escuchen" = "val_org_escuchan",
+                     # "Se valora que dirigentes resuelvan problemas" = "val_org_resuelvan",
+                     ##"Indice percepción situación actual" = "ind_perc",
+                     ##"Indice percepción pasado" = "ind_perc_pas",
+                     "Indice confianza instituciones" = "ind_conf_inst"
+                     # "Indice autoritarismo" = "ind_aut"),
+           ),
+           scale = TRUE
+           )
+
+```
+
+
+
+```{r}
+export_summs(bgen, bcr, bn, bes, bg, bh,
+           model.names = c("General",
+                           "Costa Rica",
+                           "Nicaragua",
+                           "El Salvador",
+                           "Guatemala",
+                           "Honduras"),
+           coefs = c("Pais|Nicaragua" = "paisNicaragua",
+                     "Pais|Salvador" = "paisSalvador",
+                     "Pais|Guatemala" = "paisGuatemala",
+                     "Pais|Honduras" = "paisHonduras",
+                     "Edad" = "edad",
+                     "Trabajo remmunerado|Si" = "trabajo_remuneradoSí",
+                     "Número de personas en la casa" = "personas_casa",
+                     "Dinero Comida|Muy pocas veces" = "dinero_comidaMuy pocas veces",
+                     "Dinero Comida|Pocas veces" = "dinero_comidaPocas veces",
+                     "Dinero Comida|Algunas veces" = "dinero_comidaAlgunas veces",
+                     "Dinero Comida|Con frecuencia" = "dinero_comidaCon frecuencia",
+                     "Dinero Comida|Con mucha frecuencia" = "dinero_comidaCon mucha frecuencia",
+                     "Dinero Casa|Muy pocas veces" = "dinero_casaMuy pocas veces",
+                     "Dinero Casa|Pocas veces" = "dinero_casaPocas veces",
+                     "Dinero Casa|Algunas veces" = "dinero_casaAlgunas veces",
+                     "Dinero Casa|Con frecuencia" = "dinero_casaCon frecuencia",
+                     "Dinero Casa|Con mucha frecuencia" = "dinero_casaCon mucha frecuencia",
+                     "Dinero Buses|Muy pocas veces" = "dinero_busesMuy pocas veces",
+                     "Dinero Buses|Pocas veces" = "dinero_busesPocas veces",
+                     "Dinero Buses|Algunas veces" = "dinero_busesAlgunas veces",
+                     "Dinero Buses|Con frecuencia" = "dinero_busesCon frecuencia",
+                     "Dinero Buses|Con mucha frecuencia" = "dinero_busesCon mucha frecuencia",
+                     "Victimas Violencia|Poco miedo" = "victimas_violenciaPoco miedo",
+                     "Victimas Violencia|Miedo" = "victimas_violenciaMiedo",
+                     "Victimas Violencia|Mucho miedo" = "victimas_violenciaMucho miedo",
+                     "Se necesitan Org. Derechos Sexuales" = "org_dd_sexuales",
+                     "Se necesitan Org. DDHH" = "org_ddhh",
+                     "Se necesitan Org. Religión" = "org_religion",
+                     "Se necesitan Org. Prevención Drogas" = "org_prev_drogas",
+                     "Se necesitan Org. Empleo" = "org_empleo",
+                     "Orgs. se crean por adultos con estudios" = "cr_org_adultos_estudio",
+                     "Orgs. se crean por personas como ud." = "cr_org_pers_ud",
+                     "Orgs. se crean por el gobierno" = "cr_org_gobs",
+                     "Orgs se crean por las iglesas" = "cr_org_iglesias",
+                     "Se valora que dirigentes recoleten fondos" = "val_org_recolecten",
+                     "Se valora que dirigentes sean lideres democraticos" = "val_org_lideres",
+                     "Se valora que dirigentes escuhen" = "val_org_escuchan",
+                     "Se valora que dirigentes resuelvan problemas" = "val_org_resuelvan",
+                     "Indice percepción situación actual" = "ind_perc",
+                     "Indice percepción pasado" = "ind_perc_pas",
+                     "Indice confianza instituciones" = "ind_conf_inst",
+                     "Indice autoritarismo" = "ind_aut"),
+           scale = TRUE
+           ,to.file = "html",
+           file.name = "../output/tables/reg_tab.html"
+           )
+
+```
+
+En consecuencia con el carácter exploratorio de este estudio, el análisis multivariado consiste en realizar modelos de regresión __backward stepwise__ para determinar qué combinación de variables son las que mejor predicen las evaluaciones de justicia en los jóvenes de colonias marginales en Centroamérica. Se elaboran estos modelos para cada uno de los paises de la muestra.
+
+Comenzando por el modelo a nivel general de la muestra, se observa que el país tiene un efecto significativo con un sentido negativo en El Salvador y Guatemala, tomando Costa Rica como referencia. Esto quiere decir que, en promedio, los jóvenes salvadoreños (*β* = -.57, *p* < .001) y guatemaltecos (*β* = -.45, *p* < .001) evalúan menos justicia distributiva que los jóvenes costarricenses. En lo que respecta a las variables sociodemogáficas, se aprecia un efecto negativo de la edad (*β* = -.03, *p* < .01) y un efecto positivo del número de personas que viven en la casa (*β* = .02, *p* < .05), ambos coeficientes de baja magnitud. Pasando a las variables que refieren a la situación de vida del encuestado, se observa que quienes algunas veces (*β* = -.22, *p* < .05) y con mucha frecuencia (*β* = -.39, *p* < .05) quedan sin dinero evalúan menos justicia distributiva que a quienes nunca les ocurre tal situación. También, se observa que a mayor percepción positiva de la situación actual, más justicia distributiva se evalúa (*β* = -.21, *p* < .05). En lo que respecta a las variables de actitudes políticas, se puede apreciar un efecto positivo de la confianza en instituciones (*β* = .32, *p* < .001). Por último, las variables relacionadas a las organizaciones también muestran algunos efectos de baja magnitud. En detalle, a mayor percepción de que se necesitan organizaciones para el empleo se evalúa menos justicia (*β* = -.04, *p* < .05) y a mayor creencia de que las organizaciones se crean por el gobierno, mayor es la justicia distributiva que se evalúa (*β* = -.03, *p* < .05).
+
+
+En el modelo de Costa rica, se observa que el indice de confianza en instituciones es el predictor con mayores niveles de significancia del modelo (*β* = .94, *p* < .001), es decir, quienes confían más en las instituciones tienden a evaluar más justicia. Por otro lado, se observa un comportamiento interesante en variables relacionadas a la falta de dinero. Específicamente, se observa que quienes muy pocas veces (*β* = -.43, *p* < .05) y algunas veces (*β* = -.63, *p* < .01) se quedan sin dinero para pagar la comida evalúan menos justicia distributiva que a quienes nunca les ocurre. También relacionado a las variables de falta de dinero, se observa que quienes con mucha frecuencia se quedan sin dinero para pagar la casa, evalúan más justicia distributiva que a quienes nunca les ocurre (*β* = 1.81, *p* < .05). Este último resultado llama la atención tanto por la magnitud del coeficiente, como por la dirección de la relación. Sin embargo, consideramos que este resultado puede deberse más a diferencias de n entre cada categoría, que a un hallazgo real. Los bivariados (ver Tabla x, del Material Suplementario) muestran que la distribución de la variable dependiente en la categoría de "Con mucha frecuencia" de la variable de falta de dinero para la casa consta solamente de 3 casos. Los otros efectos significativos del modelo se concentran en las variables sobre organizaciones: a mayor creencia de que las organizaciones se crean por adultos con estudios (*β* = -.05, *p* < .05) y por "personas como usted" (*β* = -.06, *p* < .05) menos justicia se evalúa.
+
+
+En el caso de Nicaragua, se observa que la única variable sociodemográfica que tiene un efecto significativo es el número de personas en la casa, aunque con una magnitud bastante baja (*β* = .04, *p* < .05). En lo que respecta a las variables relacionadas a la falta de dinero, los resultados muestran que quienes algunas veces (*β* = -.69, *p* < .01) y con mucha frecuencia (*β* = -1.45, *p* < .01) se quedan sin dinero para comida evalúan menos justicia que quienes nunca les ocurre. En contraste, observamos que quienes responden que con mucha frecuencia se quedan sin dinero para pagar la casa evalúan más justicia (*β* = 2.263, *p* < .01) que a quienes nunca les ocurre. Al igual que en el caso de Costa Rica, somos cautos con este resultado dada la poca varianza en la distribución de casos en la variable sobre la falta de dinero para pagar la casa. En la dimensión sobre actitudes políticas, vemos que quienes confían más en las instituciones evalúan más justicia (*β* = .80, *p* < .001). Por último, los efectos que tienen que ver con las organizaciones muestran que a mayor percepción de que se necesitan organizaciones religiosas (*β* = -.08, *p* < .05) y a mayor valoración de que los dirigentes recolecten fondos (*β* = -.08, *p* < .05), menos justicia se evalúa. En contraste, a mayor creencia de que las organizaciones se crean por el gobierno, más justicia se evalúa (*β* = .10, *p* < .001).
+
+El modelo de El Salvador muestra, en general, efectos de baja magnitud. Por un lado, vemos que a mayor edad (*β* = -.05, *p* < .05) y a mayor creencia sobre que se necesitan organizaciones de derechos humanos (*β* = .07, *p* < .05), se evalúa menos justicia en la distribución de recursos. Por otro lado, a mayor percepción de que se necesitan organizaciones en prevención de drogas (*β* = .04, *p* < .05), mayor creencia de que las organizaciones se crean por el gobierno (*β* = .04, *p* < .05) y mayor confianza en las instituciones (*β* = .22, *p* < .05), mayor justicia distributiva se evalúa. Cabe resaltar que diferencia del modelo general, de Costa Rica y de Nicaragua, en El Salvador las variables sobre falta de dinero no son incluidas en el modelo más explicativo.
+
+En lo que respecta a Guatemala, las variables sociodemográficas que presentan resultados significativos son la edad (*β* = -.04, *p* < .01) y el número de personas en la casa (*β* = .03, *p* < .05). Por el lado de las variables sobre calidad de vida, se observa que quienes con mucha frecuencia se quedan sin dinero para pagar la comida (*β* = .84, *p* < .01) evalúan más justicia distributiva que a quienes nunca les ha ocurrido y que a mayor percepción de que la situación pasada era buena, más justicia se evalúa (*β* = .34, *p* < .05). También, quienes sienten miedo (*β* = -.46, *p* < .05) y mucho miedo (*β* = -.38, *p* < .05) de ser victimas de violencia, evalúan menos justicia distributiva. Por último, en lo que refiere a las organizaciones, observamos que a mayor percepción de que se necesitan organizaciones de empleo (*β* = -.06, *p* < .05) y mayor valoración de que los dirigentes escuchen a las personas (*β* = -.09, *p* < .001), menos justicia en la distribución de riquezas se evalúa.
+
+
+En el caso de Honduras, solamente la falta de dinero para comida presenta resultados significativos. En detalle, quienes muy pocas veces se quedan sin dinero para pagar la comida, evalúan más justicia en la distribución de recursos (*β* = .82, *p* < .05), comparado a quienes nunca les ocurre.
+
+```{r}
+# 3.6 Revisión de bivariados para variables especificas por resultados inesperados
+
+frq(costa_rica_reg$distribucion_de_riqueza)
+table1::table1(~distribucion_de_riqueza | dinero_casa, data = costa_rica_reg) # OJO
+
+frq(nicaragua_reg$distribucion_de_riqueza)
+table1::table1(~distribucion_de_riqueza | dinero_casa, data = nicaragua_reg) # OJO
+
+frq(nicaragua_reg$distribucion_de_riqueza)
+table1::table1(~distribucion_de_riqueza | dinero_casa, data = guatemala_reg)
+
+frq(nicaragua_reg$distribucion_de_riqueza)
+table1::table1(~distribucion_de_riqueza | dinero_casa, data = honduras_reg)
+
+frq(nicaragua_reg$distribucion_de_riqueza)
+table1::table1(~distribucion_de_riqueza | dinero_casa, data = el_salvador_reg)
+
+
+frq(costa_rica_reg$distribucion_de_riqueza)
+table1::table1(~distribucion_de_riqueza | dinero_comida, data = costa_rica_reg)
+
+frq(nicaragua_reg$distribucion_de_riqueza)
+table1::table1(~distribucion_de_riqueza | dinero_comida, data = nicaragua_reg)
+
+frq(nicaragua_reg$distribucion_de_riqueza)
+table1::table1(~distribucion_de_riqueza | dinero_comida, data = guatemala_reg) # OJO
+
+frq(nicaragua_reg$distribucion_de_riqueza)
+table1::table1(~distribucion_de_riqueza | dinero_comida, data = honduras_reg)
+
+frq(nicaragua_reg$distribucion_de_riqueza)
+table1::table1(~distribucion_de_riqueza | dinero_comida, data = el_salvador_reg)
+
+
+
+
+```
+
