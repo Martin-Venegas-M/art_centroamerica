@@ -1,11 +1,11 @@
 ---
 title: "Código de análisis de datos para artículo sobre jóvenes de Centroamerica - Base A"
-author: "Martín Venegas y Emilia Barrientos"
+author: "Ayudantes de investigación"
 date: "12/11/2021"
 output: html_document
 ---
 
-En este documento se presenta el análisis para el artículo "Evaluación de (in)justicia distributiva en jóvenes de Centroamérica" a cargo del investigador principal Juan Diego García. Específicamente, en este documento de utiliza la Base de Datos A, la cual contiene los datos que se reportarán en el artículo final.
+En este documento se presenta el análisis para el artículo "Evaluación de (in)justicia distributiva en jóvenes de Centroamérica". Específicamente, en este documento de utiliza la Base de Datos A, la cual contiene los datos que se reportarán en el artículo final.
 
 El documento se divide en tres secciones, En la primera sección se cargan las librerías para ejecutar el código. En la segunda sección se cargan los datos a analizar. En la tercera sección se procede al análisis de datos. En la sección de análisis de datos se elaboran tablas descriptivas de los datos, tanto de la muestra total como por cada país. Enseguida, se procede a probar la normalidad de la muestra. En último lugar, se elaboran modelos de regresión _backward stepwise_ tanto a nivel general como por cada país.
 
@@ -34,22 +34,15 @@ pacman::p_load(tidyverse,
                stats, # Test de Kruskal-Wallis
                ggplot2, #Para realizar gráficos
                rstatix, #Revisar normalidad
-               lattice,
-               olsrr,
                nortest, #test Lilliefors
-               MASS,
                summarytools,
-               VIM,
                table1,
                car,
-               jtools,
-               ggstance,
-               broom.mixed,
-               huxtable,
-               officer,
-               flextable,
                FSA,
-               openxlsx)
+               writexl,
+               openxlsx,
+               jtools
+               )
 
 ```  
 
